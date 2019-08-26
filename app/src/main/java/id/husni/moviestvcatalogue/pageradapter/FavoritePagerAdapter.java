@@ -1,4 +1,4 @@
-package id.husni.moviestvcatalogue;
+package id.husni.moviestvcatalogue.pageradapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

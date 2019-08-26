@@ -8,4 +8,5 @@
     <dimen name="card_view_elevation">5dp</dimen>
     <dimen name="card_view_corner">8dp</dimen>
     <dimen name="expandedText">16dp</dimen>
+    <dimen name="first_text_detail">18sp</dimen>
 </resources>
