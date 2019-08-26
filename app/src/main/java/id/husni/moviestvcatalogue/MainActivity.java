@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.fragment.FavoriteMainFragment;
 import id.husni.moviestvcatalogue.fragment.MoviesFragment;
 import id.husni.moviestvcatalogue.fragment.SeriesFragment;
