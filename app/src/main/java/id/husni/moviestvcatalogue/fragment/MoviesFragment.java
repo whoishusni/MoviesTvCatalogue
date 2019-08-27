@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,10 +24,10 @@ import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
-    MoviesAdapter adapter;
-    MoviesViewModel model;
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
+    private MoviesAdapter adapter;
+    private MoviesViewModel model;
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -61,7 +60,7 @@ public class MoviesFragment extends Fragment {
 
     }
 
-    Observer<ArrayList<Movies>> moviesObserver = new Observer<ArrayList<Movies>>() {
+    private Observer<ArrayList<Movies>> moviesObserver = new Observer<ArrayList<Movies>>() {
         @Override
         public void onChanged(ArrayList<Movies> movies) {
             adapter.setMovies(movies);

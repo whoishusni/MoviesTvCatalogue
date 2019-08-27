@@ -8,10 +8,6 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme.NoBar" >
-        <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-    </style>
 
     <style name="FirstTeksDetailStyle">
         <item name="android:textColor">@color/colorAccent</item>

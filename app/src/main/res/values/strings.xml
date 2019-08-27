@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MoviesTvCatalogue</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movies">Movies</string>
     <string name="series">Tv Series</string>
     <string name="favorite">Favorite</string>
@@ -9,4 +8,5 @@
     <string name="overview">Overview</string>
     <string name="rating">Rating</string>
     <string name="title">Title</string>
+    <string name="textview">TextView</string>
 </resources>

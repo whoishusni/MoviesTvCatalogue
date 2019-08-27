@@ -6,12 +6,10 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_height="350dp"
         android:layout_width="match_parent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collTbarMoviesDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
@@ -21,7 +19,6 @@
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
             <ImageView
-                android:id="@+id/imageMovieDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/movie_image"
@@ -93,7 +90,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                 <TextView
-                    android:id="@+id/tvMoviesRatingDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -132,7 +128,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvMoviesReleaseDetail" />
 
                 <TextView
-                    android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Overview"
