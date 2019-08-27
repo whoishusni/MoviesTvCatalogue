@@ -22,6 +22,7 @@ import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.MoviesAdapter;
 import id.husni.moviestvcatalogue.model.Movies;
 import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
     MoviesAdapter adapter;
@@ -50,7 +51,8 @@ public class MoviesFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerMovies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        recyclerView.setAdapter(scaleAdapter);
 
         model = ViewModelProviders.of(this).get(MoviesViewModel.class);
         model.setMoviesData();
