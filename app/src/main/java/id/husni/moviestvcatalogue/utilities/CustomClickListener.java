@@ -41,7 +41,7 @@ public class CustomClickListener {
         recyclerView.addOnChildAttachStateChangeListener(child);
     }
 
-    public CustomClickListener add(RecyclerView recyclerView) {
+    public static CustomClickListener add(RecyclerView recyclerView) {
         CustomClickListener support = (CustomClickListener) recyclerView.getTag(R.id.custom_item_id);
         if (support == null) {
             support = new CustomClickListener(recyclerView);

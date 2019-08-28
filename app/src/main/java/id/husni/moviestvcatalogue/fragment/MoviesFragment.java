@@ -1,6 +1,7 @@
 package id.husni.moviestvcatalogue.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.MoviesAdapter;
+import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
+import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
@@ -62,9 +65,17 @@ public class MoviesFragment extends Fragment {
 
     private Observer<ArrayList<Movies>> moviesObserver = new Observer<ArrayList<Movies>>() {
         @Override
-        public void onChanged(ArrayList<Movies> movies) {
+        public void onChanged(final ArrayList<Movies> movies) {
             adapter.setMovies(movies);
             showLoading(false);
+            CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
+                @Override
+                public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                    Intent detailIntent = new Intent(recyclerView.getContext(), MoviesDetail.class);
+                    detailIntent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
+                    startActivity(detailIntent);
+                }
+            });
         }
     };
 
