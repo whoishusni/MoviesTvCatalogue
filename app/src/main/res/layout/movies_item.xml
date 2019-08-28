@@ -54,15 +54,16 @@
                         style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:numStars="5" />
 
-                    <TextView
-                        android:id="@+id/tvMovieRating"
+                    <com.robertlevonyan.views.chip.Chip
+                        android:id="@+id/chipMovieRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        tools:text="Rating" />
+                        android:layout_marginStart="10dp"
+                        android:textSize="12sp"
+                        tools:text="0.0"/>
                 </LinearLayout>
 
                 <TextView

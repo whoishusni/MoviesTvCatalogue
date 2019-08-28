@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.robertlevonyan.views.chip.Chip;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapter.ViewHolder holder, int position) {
         holder.tvTitle.setText(movies.get(position).getTitle());
-        holder.tvVoteAverage.setText(String.valueOf(movies.get(position).getVoteAverage()));
+        holder.chipRating.setText(String.valueOf(movies.get(position).getVoteAverage()));
         holder.tvReleaseDate.setText(String.valueOf(movies.get(position).getReleaseDate()));
         float bintangRating = (float) (movies.get(position).getVoteAverage() / 2);
         holder.ratingBar.setRating(bintangRating);
@@ -64,8 +65,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        Chip chipRating;
         TextView tvTitle;
-        TextView tvVoteAverage;
         TextView tvReleaseDate;
         RatingBar ratingBar;
         ImageView imageMovies;
@@ -74,7 +75,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tvMovieTitle);
-            tvVoteAverage = itemView.findViewById(R.id.tvMovieRating);
+            chipRating = itemView.findViewById(R.id.chipMovieRating);
             tvReleaseDate = itemView.findViewById(R.id.tvMovieRelease);
             ratingBar = itemView.findViewById(R.id.movieRatingBar);
             imageMovies = itemView.findViewById(R.id.movieImage);

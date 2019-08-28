@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.robertlevonyan.views.chip.Chip;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.model.Movies;
@@ -24,9 +25,10 @@ public class MoviesDetail extends AppCompatActivity {
 
     public static final String EXTRA_MOVIES_DETAIL = "extra_movies_detail";
 
-    TextView tvTitle,tvNilaiRating,tvRelease,tvOverview;
+    TextView tvTitle,tvRelease,tvOverview;
     RatingBar ratingBar;
     ImageView imageMoviesDetail;
+    Chip chip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +46,14 @@ public class MoviesDetail extends AppCompatActivity {
         collapsingTool.setExpandedTitleTextAppearance(R.style.customExpandedTeksStyle);
 
         tvTitle = findViewById(R.id.tvMoviesTitleDetail);
-        tvNilaiRating = findViewById(R.id.tvRatingMoviesDetail);
         tvRelease = findViewById(R.id.tvMoviesReleaseDetail);
         tvOverview = findViewById(R.id.tvMoviesOverviewDetail);
         ratingBar = findViewById(R.id.movieRatingBarDetail);
         imageMoviesDetail = findViewById(R.id.imageMoviesDetail);
+        chip = findViewById(R.id.chipRatingMoviesDetail);
 
 
         tvTitle.setText(movies.getTitle());
-        tvNilaiRating.setText(String.valueOf(movies.getVoteAverage()));
         tvRelease.setText(movies.getReleaseDate());
         tvOverview.setText(movies.getOverview());
         float ratingStar = (float) (movies.getVoteAverage() / 2);
@@ -60,6 +61,8 @@ public class MoviesDetail extends AppCompatActivity {
         Glide.with(this)
                 .load(AppUtilities.POSTER_FILM_DETAIL + movies.getPosterPath())
                 .into(imageMoviesDetail);
+        chip.setText(String.valueOf(movies.getVoteAverage()));
+
     }
 
     @Override
