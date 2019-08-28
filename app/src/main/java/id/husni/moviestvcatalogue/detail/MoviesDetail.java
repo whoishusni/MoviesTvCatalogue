@@ -9,9 +9,12 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.model.Movies;
@@ -61,6 +64,21 @@ public class MoviesDetail extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_for_like, menu);
+        MenuItem menuItem = menu.findItem(R.id.actLike);
+        LikeButton likeButton = menuItem.getActionView().findViewById(R.id.customLikeButton);
+
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                Toast.makeText(MoviesDetail.this, "Liked", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                Toast.makeText(MoviesDetail.this, "Unliked", Toast.LENGTH_SHORT).show();
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
