@@ -20,8 +20,11 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.MoviesAdapter;
+import id.husni.moviestvcatalogue.adapter.MoviesFavoriteAdapter;
 import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
+import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
+import id.husni.moviestvcatalogue.utilities.AppUtilities;
 import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
@@ -73,7 +76,8 @@ public class MoviesFragment extends Fragment {
                 public void onItemClicked(RecyclerView recyclerView, int position, View view) {
                     Intent detailIntent = new Intent(recyclerView.getContext(), MoviesDetail.class);
                     detailIntent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
-                    startActivity(detailIntent);
+                    detailIntent.putExtra(MoviesDetail.EXTRA_POSITION, position);
+                    startActivityForResult(detailIntent, AppUtilities.ADD_REQUEST_CODE);
                 }
             });
         }
@@ -84,6 +88,18 @@ public class MoviesFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppUtilities.ADD_REQUEST_CODE) {
+            if (resultCode == AppUtilities.ADD_RESULT_CODE) {
+                MoviesFavorite moviesFavorite = data.getParcelableExtra(MoviesDetail.EXTRA_MOVIES_DETAIL);
+                MoviesFavoriteAdapter adapter = new MoviesFavoriteAdapter(getContext());
+                adapter.insertData(moviesFavorite);
+            }
         }
     }
 }

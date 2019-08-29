@@ -20,23 +20,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "moviecatalogue";
     private static final int DATABASE_VERSION = 1;
 
-     /*
-     TODO: TAMBAHKAN QUERY CREATE TABLE MOVIES
-     -- disini query --
+    private static final String CREATE_TABLE_MOVIES = String.format("CREATE TABLE %s " +
+                    "(%s INTEGER PRIMARY KEY," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL);",
+            MOVIES_FAVE_TABLE_NAME,
+            _ID,
+            TITLE,
+            RATING,
+            OVERVIEW,
+            POSTER,
+            RELEASE_DATE);
 
-    */
-
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(CREATE_TABLE_MOVIES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_MOVIES);
     }
 }
