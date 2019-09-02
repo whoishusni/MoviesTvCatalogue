@@ -35,6 +35,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             POSTER,
             RELEASE_DATE);
 
+    private static final String CREATE_TABLE_SERIES = String.format("CREATE TABLE %s " +
+                    "(%s INTEGER PRIMARY KEY," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL);",
+            SERIES_FAVE_TABLE_NAME,
+            _ID,
+            TITLE,
+            RATING,
+            OVERVIEW,
+            POSTER,
+            RELEASE_DATE);
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -42,10 +57,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_MOVIES);
+        db.execSQL(CREATE_TABLE_SERIES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_MOVIES);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_SERIES);
     }
 }
