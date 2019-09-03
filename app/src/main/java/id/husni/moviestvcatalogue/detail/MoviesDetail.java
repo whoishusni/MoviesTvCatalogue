@@ -27,7 +27,7 @@ import id.husni.moviestvcatalogue.utilities.AppUtilities;
 public class MoviesDetail extends AppCompatActivity {
 
     public static final String EXTRA_MOVIES_DETAIL = "extra_movies_detail";
-    public static final String EXTRA_POSITION = "extra_position" ;
+    public static final String EXTRA_POSITION_MOVIES = "extra_position_movies" ;
 
     TextView tvTitle,tvRelease,tvOverview;
     RatingBar ratingBar;
@@ -46,7 +46,7 @@ public class MoviesDetail extends AppCompatActivity {
         helper.open();
 
         if (moviesFavorite != null) {
-            position = getIntent().getIntExtra(EXTRA_POSITION, 0);
+            position = getIntent().getIntExtra(EXTRA_POSITION_MOVIES, 0);
         } else {
             moviesFavorite = new MoviesFavorite();
         }
@@ -84,16 +84,15 @@ public class MoviesDetail extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO: function INSERT DATA
         moviesFavorite.setTitle(movies.getTitle());
-        moviesFavorite.setVoteAverage(movies.getVoteAverage());
+        moviesFavorite.setVoteAverage(String.valueOf(movies.getVoteAverage()));
         moviesFavorite.setOverview(movies.getOverview());
         moviesFavorite.setPosterPath(movies.getPosterPath());
         moviesFavorite.setReleaseDate(movies.getReleaseDate());
 
         final Intent intent = new Intent();
         intent.putExtra(EXTRA_MOVIES_DETAIL, moviesFavorite);
-        intent.putExtra(EXTRA_POSITION, position);
+        intent.putExtra(EXTRA_POSITION_MOVIES, position);
 
 
         getMenuInflater().inflate(R.menu.menu_for_like, menu);

@@ -68,7 +68,7 @@ public class MoviesHelper {
                 moviesFavorite = new MoviesFavorite();
                 moviesFavorite.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 moviesFavorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-                moviesFavorite.setVoteAverage(cursor.getInt(cursor.getColumnIndexOrThrow(RATING)));
+                moviesFavorite.setVoteAverage(cursor.getString(cursor.getColumnIndexOrThrow(RATING)));
                 moviesFavorite.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
                 moviesFavorite.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
                 moviesFavorite.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)));
@@ -83,7 +83,7 @@ public class MoviesHelper {
     public long insert(MoviesFavorite moviesFavorite) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TITLE, moviesFavorite.getTitle());
-        contentValues.put(RATING, String.valueOf(moviesFavorite.getVoteAverage()));
+        contentValues.put(RATING, moviesFavorite.getVoteAverage());
         contentValues.put(OVERVIEW, moviesFavorite.getOverview());
         contentValues.put(POSTER, moviesFavorite.getPosterPath());
         contentValues.put(RELEASE_DATE, moviesFavorite.getReleaseDate());

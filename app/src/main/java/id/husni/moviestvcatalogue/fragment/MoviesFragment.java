@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.MoviesAdapter;
-import id.husni.moviestvcatalogue.adapter.MoviesFavoriteAdapter;
+import id.husni.moviestvcatalogue.adapter.favorite.MoviesFavoriteAdapter;
 import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
@@ -76,7 +76,7 @@ public class MoviesFragment extends Fragment {
                 public void onItemClicked(RecyclerView recyclerView, int position, View view) {
                     Intent detailIntent = new Intent(recyclerView.getContext(), MoviesDetail.class);
                     detailIntent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
-                    detailIntent.putExtra(MoviesDetail.EXTRA_POSITION, position);
+                    detailIntent.putExtra(MoviesDetail.EXTRA_POSITION_MOVIES, position);
                     startActivityForResult(detailIntent, AppUtilities.ADD_REQUEST_CODE);
                 }
             });

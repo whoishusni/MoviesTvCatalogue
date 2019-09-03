@@ -3,6 +3,7 @@ package id.husni.moviestvcatalogue.detail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,30 +19,46 @@ import com.like.OnLikeListener;
 import com.robertlevonyan.views.chip.Chip;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.Series;
+import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class SeriesDetail extends AppCompatActivity {
 
     public static final String EXTRA_SERIES_DETAIL = "extra_series" ;
+    public static final String EXTRA_POSITION_SERIES = "extra_position_series" ;
     TextView tvTitle,tvAiring,tvOverview;
     RatingBar ratingBar;
     ImageView imageSeriesDetail;
     Chip chip;
+    SeriesHelper helper;
+    SeriesFavorite seriesFavorite;
+    int position;
+    Series series;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series_detail);
 
-        Series series = getIntent().getParcelableExtra(EXTRA_SERIES_DETAIL);
+        helper = SeriesHelper.getInstance(this);
+        helper.open();
+
+        if (seriesFavorite != null) {
+            position = getIntent().getIntExtra(EXTRA_POSITION_SERIES, 0);
+        } else {
+            seriesFavorite = new SeriesFavorite();
+        }
+
+        series = getIntent().getParcelableExtra(EXTRA_SERIES_DETAIL);
 
         Toolbar toolbar = findViewById(R.id.tbarSeriesDetail);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(series.getTitle());
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingSeriesDetail);
+        collapsingToolbarLayout.setTitle(series.getTitle());
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.customExpandedTeksStyle);
 
         tvTitle = findViewById(R.id.tvSeriesTitleDetail);
@@ -66,13 +83,28 @@ public class SeriesDetail extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        seriesFavorite.setTitle(series.getTitle());
+        seriesFavorite.setVoteAverage(String.valueOf(series.getVoteAverage()));
+        seriesFavorite.setOverview(series.getOverview());
+        seriesFavorite.setPosterPath(series.getPosterPath());
+        seriesFavorite.setAiringDate(series.getAiringDate());
+
+        final Intent intent = new Intent();
+        intent.putExtra(EXTRA_SERIES_DETAIL, seriesFavorite);
+        intent.putExtra(EXTRA_POSITION_SERIES, position);
+
         getMenuInflater().inflate(R.menu.menu_for_like,menu);
         MenuItem item = menu.findItem(R.id.actLike);
         LikeButton likeButton = item.getActionView().findViewById(R.id.customLikeButton);
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                Toast.makeText(SeriesDetail.this, "Liked", Toast.LENGTH_SHORT).show();
+                long result = helper.insertData(seriesFavorite);
+                if (result > 0) {
+                    seriesFavorite.setId((int) result);
+                    setResult(AppUtilities.ADD_RESULT_CODE, intent);
+                    Toast.makeText(SeriesDetail.this, series.getTitle()+ getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
-import id.husni.moviestvcatalogue.adapter.MoviesFavoriteAdapter;
+import id.husni.moviestvcatalogue.adapter.favorite.MoviesFavoriteAdapter;
 import id.husni.moviestvcatalogue.callback.MoviesCallback;
 import id.husni.moviestvcatalogue.database.table.MoviesHelper;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;

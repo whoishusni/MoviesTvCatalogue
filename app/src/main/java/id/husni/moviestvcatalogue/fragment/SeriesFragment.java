@@ -21,8 +21,11 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.SeriesAdapter;
+import id.husni.moviestvcatalogue.adapter.favorite.SeriesFavoriteAdapter;
 import id.husni.moviestvcatalogue.detail.SeriesDetail;
 import id.husni.moviestvcatalogue.model.Series;
+import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
+import id.husni.moviestvcatalogue.utilities.AppUtilities;
 import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.SeriesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
@@ -79,7 +82,8 @@ public class SeriesFragment extends Fragment {
                 public void onItemClicked(RecyclerView recyclerView, int position, View view) {
                     Intent intent = new Intent(getActivity(), SeriesDetail.class);
                     intent.putExtra(SeriesDetail.EXTRA_SERIES_DETAIL, series.get(position));
-                    startActivity(intent);
+                    intent.putExtra(SeriesDetail.EXTRA_POSITION_SERIES, position);
+                    startActivityForResult(intent, AppUtilities.ADD_REQUEST_CODE);
                 }
             });
         }
@@ -90,6 +94,18 @@ public class SeriesFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppUtilities.ADD_REQUEST_CODE) {
+            if (resultCode == AppUtilities.ADD_RESULT_CODE) {
+                SeriesFavorite seriesFavorite = data.getParcelableExtra(SeriesDetail.EXTRA_SERIES_DETAIL);
+                SeriesFavoriteAdapter adapter = new SeriesFavoriteAdapter(getContext());
+                adapter.insertData(seriesFavorite);
+            }
         }
     }
 }

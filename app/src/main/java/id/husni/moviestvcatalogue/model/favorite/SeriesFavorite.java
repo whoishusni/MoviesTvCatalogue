@@ -3,11 +3,11 @@ package id.husni.moviestvcatalogue.model.favorite;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MoviesFavorite implements Parcelable {
+public class SeriesFavorite implements Parcelable {
     private int id;
     private String title;
     private String overview;
-    private String releaseDate;
+    private String airingDate;
     private String posterPath;
     private String voteAverage;
 
@@ -35,12 +35,12 @@ public class MoviesFavorite implements Parcelable {
         this.overview = overview;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getAiringDate() {
+        return airingDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setAiringDate(String airingDate) {
+        this.airingDate = airingDate;
     }
 
     public String getPosterPath() {
@@ -69,32 +69,32 @@ public class MoviesFavorite implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.overview);
-        dest.writeString(this.releaseDate);
+        dest.writeString(this.airingDate);
         dest.writeString(this.posterPath);
         dest.writeString(this.voteAverage);
     }
 
-    public MoviesFavorite() {
+    public SeriesFavorite() {
     }
 
-    protected MoviesFavorite(Parcel in) {
+    protected SeriesFavorite(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.overview = in.readString();
-        this.releaseDate = in.readString();
+        this.airingDate = in.readString();
         this.posterPath = in.readString();
         this.voteAverage = in.readString();
     }
 
-    public static final Creator<MoviesFavorite> CREATOR = new Creator<MoviesFavorite>() {
+    public static final Creator<SeriesFavorite> CREATOR = new Creator<SeriesFavorite>() {
         @Override
-        public MoviesFavorite createFromParcel(Parcel source) {
-            return new MoviesFavorite(source);
+        public SeriesFavorite createFromParcel(Parcel source) {
+            return new SeriesFavorite(source);
         }
 
         @Override
-        public MoviesFavorite[] newArray(int size) {
-            return new MoviesFavorite[size];
+        public SeriesFavorite[] newArray(int size) {
+            return new SeriesFavorite[size];
         }
     };
 }

@@ -1,7 +1,6 @@
-package id.husni.moviestvcatalogue.adapter;
+package id.husni.moviestvcatalogue.adapter.favorite;
 
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +41,12 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     }
 
     public void insertData(MoviesFavorite favorite) {
-        this.moviesFavoriteArrayList.add(favorite);
+        moviesFavoriteArrayList.add(favorite);
         notifyItemInserted(moviesFavoriteArrayList.size() - 1);
     }
 
     public void deleteData(int position) {
-        this.moviesFavoriteArrayList.remove(position);
+        moviesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeRemoved(position, moviesFavoriteArrayList.size());
     }
@@ -62,10 +61,11 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     @Override
     public void onBindViewHolder(@NonNull MoviesFavoriteAdapter.ViewHolder holder, int position) {
         holder.tvTitle.setText(moviesFavoriteArrayList.get(position).getTitle());
-        holder.chipRating.setText(String.valueOf(moviesFavoriteArrayList.get(position).getVoteAverage()));
+        holder.chipRating.setText(moviesFavoriteArrayList.get(position).getVoteAverage());
         holder.tvReleaseDate.setText(moviesFavoriteArrayList.get(position).getReleaseDate());
-        float nilaiRatingFavorite = (float) (moviesFavoriteArrayList.get(position).getVoteAverage() / 2);
-        holder.ratingBar.setRating(nilaiRatingFavorite);
+        float ratingFavorite = Float.parseFloat(moviesFavoriteArrayList.get(position).getVoteAverage());
+        float nilaiRating = ratingFavorite / 2;
+        holder.ratingBar.setRating(nilaiRating);
         Glide.with(context)
                 .load(AppUtilities.POSTER_FILM_DETAIL + moviesFavoriteArrayList.get(position).getPosterPath())
                 .into(holder.imageMoviesFavorite);
