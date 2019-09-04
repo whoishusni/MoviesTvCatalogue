@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,8 @@ import com.robertlevonyan.views.chip.Chip;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.database.table.MoviesHelper;
+import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
@@ -33,7 +37,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     }
 
     public void setMoviesFavoriteArrayList(ArrayList<MoviesFavorite> items) {
-        if (moviesFavoriteArrayList != null) {
+        if (moviesFavoriteArrayList.size() > 0) {
             moviesFavoriteArrayList.clear();
         }
         moviesFavoriteArrayList.addAll(items);
@@ -48,7 +52,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     public void deleteData(int position) {
         moviesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeRemoved(position, moviesFavoriteArrayList.size());
+        notifyItemRangeChanged(position, moviesFavoriteArrayList.size());
     }
 
     @NonNull
@@ -59,7 +63,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MoviesFavoriteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MoviesFavoriteAdapter.ViewHolder holder, final int position) {
         holder.tvTitle.setText(moviesFavoriteArrayList.get(position).getTitle());
         holder.chipRating.setText(moviesFavoriteArrayList.get(position).getVoteAverage());
         holder.tvReleaseDate.setText(moviesFavoriteArrayList.get(position).getReleaseDate());
@@ -69,6 +73,17 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
         Glide.with(context)
                 .load(AppUtilities.POSTER_FILM_DETAIL + moviesFavoriteArrayList.get(position).getPosterPath())
                 .into(holder.imageMoviesFavorite);
+        holder.deleteMoviesFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoviesHelper helper = MoviesHelper.getInstance(v.getContext());
+                helper.open();
+                helper.delete(moviesFavoriteArrayList.get(position).getId());
+                helper.close();
+                deleteData(holder.getAdapterPosition());
+                Toast.makeText(context, R.string.removeFromfavorite, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -82,6 +97,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
         public TextView tvReleaseDate;
         public RatingBar ratingBar;
         public ImageView imageMoviesFavorite;
+        public ImageButton deleteMoviesFavorite;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +106,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
             tvReleaseDate = itemView.findViewById(R.id.tvMovieReleaseFavorite);
             ratingBar = itemView.findViewById(R.id.movieRatingBarFavorite);
             imageMoviesFavorite = itemView.findViewById(R.id.movieImageFavorite);
+            deleteMoviesFavorite = itemView.findViewById(R.id.deleteMoviesFavorite);
         }
     }
 }

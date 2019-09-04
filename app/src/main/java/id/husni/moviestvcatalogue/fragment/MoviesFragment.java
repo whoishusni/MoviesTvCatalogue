@@ -31,6 +31,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
     private MoviesAdapter adapter;
+    MoviesFavoriteAdapter favoriteAdapter;
     private MoviesViewModel model;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -51,6 +52,7 @@ public class MoviesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new MoviesAdapter(getContext());
+        favoriteAdapter = new MoviesFavoriteAdapter(getContext());
 
         progressBar = view.findViewById(R.id.progressBarMovies);
 
@@ -97,8 +99,11 @@ public class MoviesFragment extends Fragment {
         if (requestCode == AppUtilities.ADD_REQUEST_CODE) {
             if (resultCode == AppUtilities.ADD_RESULT_CODE) {
                 MoviesFavorite moviesFavorite = data.getParcelableExtra(MoviesDetail.EXTRA_MOVIES_DETAIL);
-                MoviesFavoriteAdapter adapter = new MoviesFavoriteAdapter(getContext());
-                adapter.insertData(moviesFavorite);
+                favoriteAdapter.insertData(moviesFavorite);
+            }
+            if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+                int position = data.getIntExtra(MoviesDetail.EXTRA_POSITION_MOVIES, 0);
+                favoriteAdapter.deleteData(position);
             }
         }
     }

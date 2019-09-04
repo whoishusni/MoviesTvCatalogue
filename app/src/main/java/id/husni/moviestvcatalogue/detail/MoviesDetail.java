@@ -42,7 +42,7 @@ public class MoviesDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_detail);
 
-        helper = MoviesHelper.getInstance(this);
+        helper = MoviesHelper.getInstance(getApplicationContext());
         helper.open();
 
         if (moviesFavorite != null) {
@@ -106,13 +106,21 @@ public class MoviesDetail extends AppCompatActivity {
                 if (result > 0) {
                     moviesFavorite.setId((int) result);
                     setResult(AppUtilities.ADD_RESULT_CODE, intent);
-                    Toast.makeText(MoviesDetail.this, movies.getTitle() + getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MoviesDetail.this, movies.getTitle() + " " + getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MoviesDetail.this, "Gagal Liked", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                Toast.makeText(MoviesDetail.this, "Unliked", Toast.LENGTH_SHORT).show();
+                long result = helper.delete(moviesFavorite.getId());
+                if (result > 0) {
+                    setResult(AppUtilities.DELETE_RESULT_CODE, intent);
+                    Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MoviesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return super.onCreateOptionsMenu(menu);

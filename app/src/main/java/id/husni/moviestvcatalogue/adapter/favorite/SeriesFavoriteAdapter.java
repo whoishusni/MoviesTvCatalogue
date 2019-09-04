@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.robertlevonyan.views.chip.Chip;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
@@ -33,7 +36,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
     }
 
     public void setSeriesFavoriteArrayList(ArrayList<SeriesFavorite> items) {
-        if (seriesFavoriteArrayList != null) {
+        if (seriesFavoriteArrayList.size() >0) {
             seriesFavoriteArrayList.clear();
         }
         seriesFavoriteArrayList.addAll(items);
@@ -59,7 +62,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SeriesFavoriteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SeriesFavoriteAdapter.ViewHolder holder, final int position) {
         holder.tvTitle.setText(seriesFavoriteArrayList.get(position).getTitle());
         holder.tvRating.setText(seriesFavoriteArrayList.get(position).getVoteAverage());
         holder.tvAiring.setText(seriesFavoriteArrayList.get(position).getAiringDate());
@@ -69,6 +72,17 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
         Glide.with(context)
                 .load(AppUtilities.POSTER_FILM + seriesFavoriteArrayList.get(position).getPosterPath())
                 .into(holder.imageSeriesFavorite);
+        holder.deleteSeriesFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SeriesHelper helper = SeriesHelper.getInstance(v.getContext());
+                helper.open();
+                helper.deleteData(seriesFavoriteArrayList.get(position).getId());
+                helper.close();
+                deleteData(holder.getAdapterPosition());
+                Toast.makeText(context, R.string.removeFromfavorite, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -82,6 +96,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
         public TextView tvAiring;
         public RatingBar ratingBar;
         public ImageView imageSeriesFavorite;
+        public ImageButton deleteSeriesFavorite;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +105,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
             tvAiring = itemView.findViewById(R.id.tvSeriesAiringFavorite);
             ratingBar = itemView.findViewById(R.id.seriesRatingBarFavorite);
             imageSeriesFavorite = itemView.findViewById(R.id.seriesImageFavorite);
+            deleteSeriesFavorite = itemView.findViewById(R.id.deleteSeriesFavorite);
         }
     }
 }

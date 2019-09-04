@@ -41,7 +41,7 @@ public class SeriesDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series_detail);
 
-        helper = SeriesHelper.getInstance(this);
+        helper = SeriesHelper.getInstance(getApplicationContext());
         helper.open();
 
         if (seriesFavorite != null) {
@@ -103,7 +103,9 @@ public class SeriesDetail extends AppCompatActivity {
                 if (result > 0) {
                     seriesFavorite.setId((int) result);
                     setResult(AppUtilities.ADD_RESULT_CODE, intent);
-                    Toast.makeText(SeriesDetail.this, series.getTitle()+ getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SeriesDetail.this, series.getTitle() + getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SeriesDetail.this, "Gagal Like", Toast.LENGTH_SHORT).show();
                 }
             }
 

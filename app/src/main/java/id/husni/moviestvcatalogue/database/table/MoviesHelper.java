@@ -63,8 +63,8 @@ public class MoviesHelper {
                 null);
         cursor.moveToFirst();
         MoviesFavorite moviesFavorite;
-        do {
-            if (cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
+            do {
                 moviesFavorite = new MoviesFavorite();
                 moviesFavorite.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 moviesFavorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
@@ -72,10 +72,11 @@ public class MoviesHelper {
                 moviesFavorite.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
                 moviesFavorite.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
                 moviesFavorite.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)));
-                cursor.moveToNext();
                 moviesFavoritesArray.add(moviesFavorite);
+                cursor.moveToNext();
             }
-        } while (!cursor.isAfterLast());
+            while (!cursor.isAfterLast());
+        }
         cursor.close();
         return moviesFavoritesArray;
     }
@@ -90,7 +91,7 @@ public class MoviesHelper {
         return database.insert(MOVIES_FAVE_TABLE_NAME, null, contentValues);
     }
 
-    public int delete(int position) {
-        return database.delete(MOVIES_FAVE_TABLE_NAME, _ID + "= '" + position + "'",null);
+    public int delete(int id) {
+        return database.delete(MOVIES_FAVE_TABLE_NAME, _ID + "='" + id + "'",null);
     }
 }

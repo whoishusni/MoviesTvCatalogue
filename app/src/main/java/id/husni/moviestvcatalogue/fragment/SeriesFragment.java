@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 public class SeriesFragment extends Fragment {
 
     SeriesAdapter adapter;
+    SeriesFavoriteAdapter favoriteAdapter;
     RecyclerView recyclerView;
     ProgressBar progressBar;
     SeriesViewModel model;
@@ -59,6 +63,8 @@ public class SeriesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new SeriesAdapter(getContext());
+        favoriteAdapter = new SeriesFavoriteAdapter(getContext());
+
         recyclerView = view.findViewById(R.id.recyclerSeries);
         progressBar = view.findViewById(R.id.progressBarSeries);
 
@@ -103,8 +109,11 @@ public class SeriesFragment extends Fragment {
         if (requestCode == AppUtilities.ADD_REQUEST_CODE) {
             if (resultCode == AppUtilities.ADD_RESULT_CODE) {
                 SeriesFavorite seriesFavorite = data.getParcelableExtra(SeriesDetail.EXTRA_SERIES_DETAIL);
-                SeriesFavoriteAdapter adapter = new SeriesFavoriteAdapter(getContext());
-                adapter.insertData(seriesFavorite);
+                favoriteAdapter.insertData(seriesFavorite);
+            }
+
+            if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+
             }
         }
     }

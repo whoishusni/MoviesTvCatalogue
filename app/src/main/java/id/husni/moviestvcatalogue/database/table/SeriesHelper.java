@@ -64,8 +64,8 @@ public class SeriesHelper {
 
         cursor.moveToFirst();
         SeriesFavorite seriesFavorite;
-        do {
-            if (cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
+            do {
                 seriesFavorite = new SeriesFavorite();
                 seriesFavorite.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 seriesFavorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
@@ -73,10 +73,11 @@ public class SeriesHelper {
                 seriesFavorite.setAiringDate(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)));
                 seriesFavorite.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
                 seriesFavorite.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
-                cursor.moveToNext();
                 seriesFavoritesArray.add(seriesFavorite);
-            }
-        } while (!cursor.isAfterLast());
+                cursor.moveToNext();
+
+            }while (!cursor.isAfterLast());
+        }
         cursor.close();
         return seriesFavoritesArray;
     }
