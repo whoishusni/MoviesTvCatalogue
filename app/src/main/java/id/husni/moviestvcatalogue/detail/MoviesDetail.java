@@ -29,14 +29,16 @@ public class MoviesDetail extends AppCompatActivity {
     public static final String EXTRA_MOVIES_DETAIL = "extra_movies_detail";
     public static final String EXTRA_POSITION_MOVIES = "extra_position_movies" ;
 
-    TextView tvTitle,tvRelease,tvOverview;
-    RatingBar ratingBar;
-    ImageView imageMoviesDetail;
-    Chip chip;
-    MoviesHelper helper;
-    Movies movies;
-    MoviesFavorite moviesFavorite;
-    int position;
+    private TextView tvTitle;
+    private TextView tvRelease;
+    private TextView tvOverview;
+    private RatingBar ratingBar;
+    private ImageView imageMoviesDetail;
+    private Chip chip;
+    private MoviesHelper helper;
+    private Movies movies;
+    private MoviesFavorite moviesFavorite;
+    private int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,13 +116,16 @@ public class MoviesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                long result = helper.delete(moviesFavorite.getId());
+                helper.delete(moviesFavorite.getId());
+                Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
+
+                /*long result = helper.delete(moviesFavorite.getId());
                 if (result > 0) {
                     setResult(AppUtilities.DELETE_RESULT_CODE, intent);
                     Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MoviesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
         return super.onCreateOptionsMenu(menu);

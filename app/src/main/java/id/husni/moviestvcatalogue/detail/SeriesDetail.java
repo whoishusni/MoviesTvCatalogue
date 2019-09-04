@@ -28,14 +28,16 @@ public class SeriesDetail extends AppCompatActivity {
 
     public static final String EXTRA_SERIES_DETAIL = "extra_series" ;
     public static final String EXTRA_POSITION_SERIES = "extra_position_series" ;
-    TextView tvTitle,tvAiring,tvOverview;
-    RatingBar ratingBar;
-    ImageView imageSeriesDetail;
-    Chip chip;
-    SeriesHelper helper;
-    SeriesFavorite seriesFavorite;
-    int position;
-    Series series;
+    private TextView tvTitle;
+    private TextView tvAiring;
+    private TextView tvOverview;
+    private RatingBar ratingBar;
+    private ImageView imageSeriesDetail;
+    private Chip chip;
+    private SeriesHelper helper;
+    private SeriesFavorite seriesFavorite;
+    private int position;
+    private Series series;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +105,7 @@ public class SeriesDetail extends AppCompatActivity {
                 if (result > 0) {
                     seriesFavorite.setId((int) result);
                     setResult(AppUtilities.ADD_RESULT_CODE, intent);
-                    Toast.makeText(SeriesDetail.this, series.getTitle() + getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SeriesDetail.this, series.getTitle() +" "+ getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SeriesDetail.this, "Gagal Like", Toast.LENGTH_SHORT).show();
                 }
@@ -111,7 +113,16 @@ public class SeriesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                Toast.makeText(SeriesDetail.this, "Unliked", Toast.LENGTH_SHORT).show();
+                helper.deleteData(seriesFavorite.getId());
+                Toast.makeText(SeriesDetail.this, series.getTitle() + " " + getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
+
+                /*long result = helper.deleteData(seriesFavorite.getId());
+                if (result > 0) {
+                    setResult(AppUtilities.DELETE_RESULT_CODE, intent);
+                    Toast.makeText(SeriesDetail.this, series.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SeriesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
         return super.onCreateOptionsMenu(menu);

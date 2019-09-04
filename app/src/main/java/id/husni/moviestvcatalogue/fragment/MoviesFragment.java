@@ -31,7 +31,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
     private MoviesAdapter adapter;
-    MoviesFavoriteAdapter favoriteAdapter;
+    private MoviesFavoriteAdapter favoriteAdapter;
     private MoviesViewModel model;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -101,10 +101,10 @@ public class MoviesFragment extends Fragment {
                 MoviesFavorite moviesFavorite = data.getParcelableExtra(MoviesDetail.EXTRA_MOVIES_DETAIL);
                 favoriteAdapter.insertData(moviesFavorite);
             }
-            if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+            /*else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
                 int position = data.getIntExtra(MoviesDetail.EXTRA_POSITION_MOVIES, 0);
                 favoriteAdapter.deleteData(position);
-            }
+            }*/
         }
     }
 }

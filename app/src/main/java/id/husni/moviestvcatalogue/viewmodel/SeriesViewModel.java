@@ -20,7 +20,7 @@ import id.husni.moviestvcatalogue.model.Series;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class SeriesViewModel extends ViewModel {
-    MutableLiveData<ArrayList<Series>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Series>> mutableLiveData = new MutableLiveData<>();
 
     public void setMoviesData() {
         final ArrayList<Series> seriesArrayList = new ArrayList<>();

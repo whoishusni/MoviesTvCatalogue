@@ -23,10 +23,10 @@ import static id.husni.moviestvcatalogue.database.DatabaseContract._ID;
 public class MoviesHelper {
 
     private static MoviesHelper INSTANCE;
-    DatabaseHelper helper;
-    SQLiteDatabase database;
+    private DatabaseHelper helper;
+    private SQLiteDatabase database;
 
-    public MoviesHelper(Context context) {
+    private MoviesHelper(Context context) {
         helper = new DatabaseHelper(context);
     }
 

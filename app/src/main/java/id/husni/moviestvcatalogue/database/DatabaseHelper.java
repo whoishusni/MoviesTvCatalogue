@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import static id.husni.moviestvcatalogue.database.DatabaseContract._ID;
 import static id.husni.moviestvcatalogue.database.DatabaseContract.TITLE;
 import static id.husni.moviestvcatalogue.database.DatabaseContract.RATING;

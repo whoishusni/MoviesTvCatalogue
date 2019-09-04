@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MoviesTvCatalogue</string>
+    <string name="movies">Movies</string>
+    <string name="series">Tv Series</string>
+    <string name="favorite">Favorite</string>
+    <string name="movie_image">movie image</string>
+    <string name="release_date">Release Date</string>
+    <string name="overview">Overview</string>
+    <string name="rating">Rating</string>
+    <string name="title">Title</string>
+    <string name="textview">TextView</string>
+    <string name="delete_image_button">delete image button</string>
+    <string name="addedtofavorite">Added To Favorite List</string>
+    <string name="removeFromfavorite">Remove From Favorite List</string>
+    <string name="series_image">series image</string>
+</resources>

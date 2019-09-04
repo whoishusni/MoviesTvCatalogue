@@ -20,13 +20,12 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.database.table.MoviesHelper;
-import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAdapter.ViewHolder> {
-    ArrayList<MoviesFavorite> moviesFavoriteArrayList = new ArrayList<>();
-    Context context;
+    private ArrayList<MoviesFavorite> moviesFavoriteArrayList = new ArrayList<>();
+    private Context context;
 
     public MoviesFavoriteAdapter(Context context) {
         this.context = context;
@@ -49,7 +48,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
         notifyItemInserted(moviesFavoriteArrayList.size() - 1);
     }
 
-    public void deleteData(int position) {
+    private void deleteData(int position) {
         moviesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, moviesFavoriteArrayList.size());
@@ -92,14 +91,14 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTitle;
-        public Chip chipRating;
-        public TextView tvReleaseDate;
-        public RatingBar ratingBar;
-        public ImageView imageMoviesFavorite;
-        public ImageButton deleteMoviesFavorite;
+        TextView tvTitle;
+        Chip chipRating;
+        TextView tvReleaseDate;
+        RatingBar ratingBar;
+        ImageView imageMoviesFavorite;
+        ImageButton deleteMoviesFavorite;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvMovieTitleFavorite);
             chipRating = itemView.findViewById(R.id.chipMovieRatingFavorite);

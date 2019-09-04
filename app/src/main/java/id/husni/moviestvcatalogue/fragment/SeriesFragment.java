@@ -7,18 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -39,11 +35,11 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
  */
 public class SeriesFragment extends Fragment {
 
-    SeriesAdapter adapter;
-    SeriesFavoriteAdapter favoriteAdapter;
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
-    SeriesViewModel model;
+    private SeriesAdapter adapter;
+    private SeriesFavoriteAdapter favoriteAdapter;
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private SeriesViewModel model;
 
 
     public SeriesFragment() {
@@ -111,10 +107,10 @@ public class SeriesFragment extends Fragment {
                 SeriesFavorite seriesFavorite = data.getParcelableExtra(SeriesDetail.EXTRA_SERIES_DETAIL);
                 favoriteAdapter.insertData(seriesFavorite);
             }
-
-            if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
-
-            }
+            /*else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+                int position = data.getIntExtra(SeriesDetail.EXTRA_POSITION_SERIES, 0);
+                favoriteAdapter.deleteData(position);
+            }*/
         }
     }
 }

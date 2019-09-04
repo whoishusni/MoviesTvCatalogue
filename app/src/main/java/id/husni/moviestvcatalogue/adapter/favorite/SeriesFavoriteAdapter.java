@@ -24,8 +24,8 @@ import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAdapter.ViewHolder> {
-    ArrayList<SeriesFavorite> seriesFavoriteArrayList = new ArrayList<>();
-    Context context;
+    private ArrayList<SeriesFavorite> seriesFavoriteArrayList = new ArrayList<>();
+    private Context context;
 
     public SeriesFavoriteAdapter(Context context) {
         this.context = context;
@@ -48,7 +48,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
         notifyItemInserted(seriesFavoriteArrayList.size() - 1);
     }
 
-    public void deleteData(int position) {
+    private void deleteData(int position) {
         seriesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeRemoved(position, seriesFavoriteArrayList.size());
@@ -91,14 +91,14 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTitle;
-        public Chip tvRating;
-        public TextView tvAiring;
-        public RatingBar ratingBar;
-        public ImageView imageSeriesFavorite;
-        public ImageButton deleteSeriesFavorite;
+        TextView tvTitle;
+        Chip tvRating;
+        TextView tvAiring;
+        RatingBar ratingBar;
+        ImageView imageSeriesFavorite;
+        ImageButton deleteSeriesFavorite;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvSeriesTitleFavorite);
             tvRating = itemView.findViewById(R.id.chipSeriesRatingFavorite);

@@ -21,8 +21,8 @@ import id.husni.moviestvcatalogue.model.Series;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder> {
-    ArrayList<Series> seriesArrayList = new ArrayList<>();
-    Context context;
+    private ArrayList<Series> seriesArrayList = new ArrayList<>();
+    private Context context;
 
     public SeriesAdapter(Context context) {
         this.context = context;
@@ -65,13 +65,13 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTitle;
-        public Chip chipRating;
-        public TextView tvAiring;
-        public RatingBar ratingBar;
-        public ImageView imageSeries;
+        TextView tvTitle;
+        Chip chipRating;
+        TextView tvAiring;
+        RatingBar ratingBar;
+        ImageView imageSeries;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tvSeriesTitle);

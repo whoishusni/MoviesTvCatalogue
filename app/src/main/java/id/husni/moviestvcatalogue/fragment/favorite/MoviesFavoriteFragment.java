@@ -29,8 +29,8 @@ import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
  */
 public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
 
-    MoviesFavoriteAdapter adapter;
-    MoviesHelper helper;
+    private MoviesFavoriteAdapter adapter;
+    private MoviesHelper helper;
     MoviesFavorite moviesFavorite;
 
     public MoviesFavoriteFragment() {
@@ -75,7 +75,7 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
         WeakReference<MoviesHelper> helperWeakReference;
         WeakReference<MoviesCallback> callbackWeakReference;
 
-        public MyAsyncData(MoviesHelper helper, MoviesCallback callback) {
+        MyAsyncData(MoviesHelper helper, MoviesCallback callback) {
             helperWeakReference = new WeakReference<>(helper);
             callbackWeakReference = new WeakReference<>(callback);
         }

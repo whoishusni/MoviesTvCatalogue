@@ -21,7 +21,7 @@ import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class MoviesViewModel extends ViewModel {
 
-    MutableLiveData<ArrayList<Movies>> mutableMovies = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Movies>> mutableMovies = new MutableLiveData<>();
 
     public void setMoviesData() {
         final ArrayList<Movies> moviesArrayList = new ArrayList<>();

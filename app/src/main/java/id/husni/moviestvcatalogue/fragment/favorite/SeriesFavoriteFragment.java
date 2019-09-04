@@ -22,7 +22,6 @@ import id.husni.moviestvcatalogue.adapter.favorite.SeriesFavoriteAdapter;
 import id.husni.moviestvcatalogue.callback.SeriesCallback;
 import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 
 /**
@@ -30,9 +29,9 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
  */
 public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
 
-    SeriesHelper helper;
+    private SeriesHelper helper;
     SeriesFavorite seriesFavorite;
-    SeriesFavoriteAdapter adapter;
+    private SeriesFavoriteAdapter adapter;
 
     public SeriesFavoriteFragment() {
         // Required empty public constructor
@@ -76,7 +75,7 @@ public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
         WeakReference<SeriesHelper> helperWeakReference;
         WeakReference<SeriesCallback> callbackWeakReference;
 
-        public MyAsyncData(SeriesHelper helper, SeriesCallback callback) {
+        MyAsyncData(SeriesHelper helper, SeriesCallback callback) {
             helperWeakReference = new WeakReference<>(helper);
             callbackWeakReference = new WeakReference<>(callback);
         }

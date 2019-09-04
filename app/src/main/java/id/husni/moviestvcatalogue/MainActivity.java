@@ -1,8 +1,6 @@
 package id.husni.moviestvcatalogue;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,7 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.fragment.FavoriteMainFragment;
 import id.husni.moviestvcatalogue.fragment.MoviesFragment;
 import id.husni.moviestvcatalogue.fragment.SeriesFragment;

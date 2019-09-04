@@ -22,11 +22,11 @@ import static id.husni.moviestvcatalogue.database.DatabaseContract._ID;
 
 public class SeriesHelper {
 
-    static SeriesHelper INSTANCE;
-    SQLiteDatabase database;
-    DatabaseHelper helper;
+    private static SeriesHelper INSTANCE;
+    private SQLiteDatabase database;
+    private DatabaseHelper helper;
 
-    public SeriesHelper(Context context) {
+    private SeriesHelper(Context context) {
         helper = new DatabaseHelper(context);
     }
 
