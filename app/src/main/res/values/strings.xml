@@ -13,4 +13,5 @@
     <string name="addedtofavorite">Added To Favorite List</string>
     <string name="removeFromfavorite">Remove From Favorite List</string>
     <string name="series_image">series image</string>
+    <string name="change_languange">Change Languange</string>
 </resources>
