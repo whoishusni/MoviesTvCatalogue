@@ -13,9 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.IDN;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import id.husni.moviestvcatalogue.model.Movies;

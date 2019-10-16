@@ -25,7 +25,7 @@ public class DailyReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID ="daily_channel_id" ;
     private static final String CHANNEL_NAME = "daily_channel_name" ;
     public static final String TYPE_DAILY ="type_daily" ;
-    private int notifId = 10;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,6 +54,7 @@ public class DailyReceiver extends BroadcastReceiver {
 
         }
 
+        int notifId = 10;
         Notification notification = builder.build();
         if (manager != null) {
             manager.notify(notifId,notification);

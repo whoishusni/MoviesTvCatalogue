@@ -2,7 +2,6 @@ package id.husni.moviestvcatalogue.preference;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;

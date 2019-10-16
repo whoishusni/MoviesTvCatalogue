@@ -78,10 +78,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*if (item.getItemId() == R.id.actChangeLang) {
-            Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-            startActivity(intent);
-        }*/
         switch (item.getItemId()) {
             case R.id.actChangeLang:
                 Intent langIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
