@@ -7,10 +7,12 @@
         android:icon="@drawable/ic_search_white"
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
         android:id="@+id/actChangeLang"
-        android:icon="@drawable/ic_settings"
         android:title="@string/change_languange"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/actReminder"
+        android:title="@string/reminder" />
 </menu>

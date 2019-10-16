@@ -15,4 +15,14 @@
     <string name="series_image">series image</string>
     <string name="change_languange">Change Languange</string>
     <string name="search">Search</string>
+    <string name="reminder">Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_message">Please Check Your App For New Release</string>
+    <string name="daily_reminder_summary">A Daily Reminder At 07:00</string>
+    <string name="key_reminder_daily">key_reminder_daily</string>
+    <string name="key_reminder_release">key_reminder_release</string>
+    <string name="release_reminder">New Release Reminder</string>
+    <string name="release_reminder_summary">Reminder About Today Release</string>
+    <string name="toast_notsetup_daily">Daily Reminder Is Not Setup</string>
+    <string name="toast_setup_daily">Daily Reminder Is Setup</string>
 </resources>

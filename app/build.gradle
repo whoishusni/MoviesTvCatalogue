@@ -40,4 +40,5 @@ dependencies {
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     implementation 'com.robertlevonyan.view:MaterialChipView:2.0.3'
+    implementation 'androidx.preference:preference:1.1.0'
 }

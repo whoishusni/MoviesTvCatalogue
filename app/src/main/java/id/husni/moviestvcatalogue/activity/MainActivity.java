@@ -1,4 +1,4 @@
-package id.husni.moviestvcatalogue;
+package id.husni.moviestvcatalogue.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.fragment.FavoriteMainFragment;
 import id.husni.moviestvcatalogue.fragment.MoviesFragment;
 import id.husni.moviestvcatalogue.fragment.SeriesFragment;
@@ -77,9 +78,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.actChangeLang) {
+        /*if (item.getItemId() == R.id.actChangeLang) {
             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(intent);
+        }*/
+        switch (item.getItemId()) {
+            case R.id.actChangeLang:
+                Intent langIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(langIntent);
+                break;
+            case R.id.actReminder:
+                Intent reminderIntent = new Intent(MainActivity.this, ReminderActivity.class);
+                startActivity(reminderIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
