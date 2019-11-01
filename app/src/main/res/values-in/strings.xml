@@ -14,7 +14,6 @@
     <string name="removeFromfavorite">Dihapus Dari Daftar Favorit</string>
     <string name="series_image">gambar serial</string>
     <string name="change_languange">Ganti Bahasa</string>
-    <string name="search">Cari</string>
     <string name="reminder">Pengingat</string>
     <string name="daily_reminder">Pengingat Harian</string>
     <string name="daily_reminder_message">Cek Aplikasi Anda Untuk Yang Baru Tayang</string>
@@ -25,4 +24,5 @@
     <string name="release_reminder_summary">Pengingat Tentang Rilis Hari Ini</string>
     <string name="toast_notsetup_daily">Pengingat Harian Tidak Diatur</string>
     <string name="toast_setup_daily">Pengingat Harian Telah Diatur</string>
+    <string name="searchMovie">Pencarian Film</string>
 </resources>
