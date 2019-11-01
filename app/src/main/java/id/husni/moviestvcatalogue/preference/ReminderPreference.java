@@ -49,9 +49,9 @@ public class ReminderPreference extends PreferenceFragmentCompat implements Shar
         DailyReceiver dailyReceiver = new DailyReceiver();
         if (key.equals(DAILY)) {
             if (dailySwitchPref.isChecked()) {
-                dailyReceiver.setDailyReminder(getContext(),dailyReceiver.TYPE_DAILY);
+                dailyReceiver.setDailyReminder(getContext(), DailyReceiver.TYPE_DAILY);
             } else {
-                dailyReceiver.setCancelDailyReminder(getContext(),dailyReceiver.TYPE_DAILY);
+                dailyReceiver.setCancelDailyReminder(getContext(), DailyReceiver.TYPE_DAILY);
             }
         }
     }
