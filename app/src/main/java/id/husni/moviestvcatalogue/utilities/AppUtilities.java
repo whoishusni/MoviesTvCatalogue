@@ -16,5 +16,4 @@ public class AppUtilities {
     public static final int DELETE_RESULT_CODE = 200;
     public static final int DAILY_REQUEST_CODE = 300;
 
-
 }

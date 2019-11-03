@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Intent reminderIntent = new Intent(MainActivity.this, ReminderActivity.class);
                 startActivity(reminderIntent);
                 break;
+            case R.id.actSearchMovie:
+                Intent searchMovieIntent = new Intent(MainActivity.this, MovieSearchActivity.class);
+                startActivity(searchMovieIntent);
         }
         return super.onOptionsItemSelected(item);
     }
