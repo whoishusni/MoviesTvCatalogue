@@ -25,4 +25,7 @@
     <string name="toast_notsetup_daily">Pengingat Harian Tidak Diatur</string>
     <string name="toast_setup_daily">Pengingat Harian Telah Diatur</string>
     <string name="searchMovie">Pencarian Film</string>
+    <string name="empty_search">Pencarian Masih Kosong</string>
+    <string name="search">Cari</string>
+    <string name="searchSeries">Pencarian Series</string>
 </resources>

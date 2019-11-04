@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +29,7 @@ import id.husni.moviestvcatalogue.viewmodel.search.MoviesSearchViewModel;
 public class MovieSearchActivity extends AppCompatActivity {
     private MoviesSearchAdapter adapter;
     private ProgressBar progressBar;
+    private TextView emptyText;
     private MoviesSearchViewModel model;
     RecyclerView recyclerView;
 
@@ -42,6 +44,8 @@ public class MovieSearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressBar = findViewById(R.id.progressBarMoviesSearch);
 
+        emptyText = findViewById(R.id.emptyTextMovieSearch);
+
         adapter = new MoviesSearchAdapter(this);
 
         recyclerView = findViewById(R.id.recyclerMovieSearch);
@@ -51,7 +55,6 @@ public class MovieSearchActivity extends AppCompatActivity {
         model = ViewModelProviders.of(this).get(MoviesSearchViewModel.class);
         model.getData().observe(this,myObserver);
 
-
     }
 
     private Observer<ArrayList<MovieSearch>> myObserver = new Observer<ArrayList<MovieSearch>>() {
@@ -59,7 +62,7 @@ public class MovieSearchActivity extends AppCompatActivity {
         public void onChanged(final ArrayList<MovieSearch> movieSearches) {
                 adapter.setMovieSearches(movieSearches);
                 showLoading(false);
-            CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
+                CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
                 @Override
                 public void onItemClicked(RecyclerView recyclerView, int position, View view) {
                     Intent intent = new Intent(MovieSearchActivity.this, MoviesSearchDetail.class);
@@ -75,6 +78,14 @@ public class MovieSearchActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void showText(boolean showText) {
+        if (showText) {
+            emptyText.setVisibility(View.VISIBLE);
+        } else {
+            emptyText.setVisibility(View.GONE);
         }
     }
 
@@ -94,8 +105,15 @@ public class MovieSearchActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    model.setData(newText);
-                    showLoading(true);
+                    if (newText.isEmpty()) {
+                        recyclerView.setAdapter(null);
+                        showText(true);
+                    } else {
+                        recyclerView.setAdapter(adapter);
+                        model.setData(newText);
+                        showLoading(true);
+                        showText(false);
+                    }
                     return false;
                 }
             });

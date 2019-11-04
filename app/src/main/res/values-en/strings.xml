@@ -25,4 +25,7 @@
     <string name="toast_notsetup_daily">Daily Reminder Is Not Setup</string>
     <string name="toast_setup_daily">Daily Reminder Is Setup</string>
     <string name="searchMovie">Search Movie</string>
+    <string name="empty_search">Empty Search</string>
+    <string name="search">Search</string>
+    <string name="searchSeries">Search Series</string>
 </resources>
