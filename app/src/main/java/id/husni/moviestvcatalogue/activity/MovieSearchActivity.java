@@ -31,7 +31,7 @@ public class MovieSearchActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView emptyText;
     private MoviesSearchViewModel model;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

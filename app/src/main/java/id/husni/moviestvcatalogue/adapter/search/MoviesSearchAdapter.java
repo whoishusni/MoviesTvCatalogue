@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,8 +20,8 @@ import id.husni.moviestvcatalogue.model.search.MovieSearch;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class MoviesSearchAdapter extends RecyclerView.Adapter<MoviesSearchAdapter.ViewHolder> {
-    ArrayList<MovieSearch> movieSearches = new ArrayList<>();
-    Context context;
+    private ArrayList<MovieSearch> movieSearches = new ArrayList<>();
+    private Context context;
 
     public MoviesSearchAdapter(Context context) {
         this.context = context;
