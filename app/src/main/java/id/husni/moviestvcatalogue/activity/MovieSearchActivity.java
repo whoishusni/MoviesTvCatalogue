@@ -1,6 +1,7 @@
 package id.husni.moviestvcatalogue.activity;
 
 import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,13 +20,16 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.search.MoviesSearchAdapter;
+import id.husni.moviestvcatalogue.detail.search.MoviesSearchDetail;
 import id.husni.moviestvcatalogue.model.search.MovieSearch;
+import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.search.MoviesSearchViewModel;
 
 public class MovieSearchActivity extends AppCompatActivity {
     private MoviesSearchAdapter adapter;
     private ProgressBar progressBar;
     private MoviesSearchViewModel model;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class MovieSearchActivity extends AppCompatActivity {
 
         adapter = new MoviesSearchAdapter(this);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerMovieSearch);
+        recyclerView = findViewById(R.id.recyclerMovieSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -52,9 +56,17 @@ public class MovieSearchActivity extends AppCompatActivity {
 
     private Observer<ArrayList<MovieSearch>> myObserver = new Observer<ArrayList<MovieSearch>>() {
         @Override
-        public void onChanged(ArrayList<MovieSearch> movieSearches) {
+        public void onChanged(final ArrayList<MovieSearch> movieSearches) {
                 adapter.setMovieSearches(movieSearches);
                 showLoading(false);
+            CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
+                @Override
+                public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                    Intent intent = new Intent(MovieSearchActivity.this, MoviesSearchDetail.class);
+                    intent.putExtra(MoviesSearchDetail.EXTRA_MOVIES_SEARCH_DETAIL, movieSearches.get(position));
+                    startActivity(intent);
+                }
+            });
         }
     };
 
