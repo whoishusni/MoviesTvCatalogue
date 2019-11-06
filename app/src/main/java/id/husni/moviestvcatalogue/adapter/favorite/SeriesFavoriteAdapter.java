@@ -77,7 +77,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
             public void onClick(View v) {
                 SeriesHelper helper = SeriesHelper.getInstance(v.getContext());
                 helper.open();
-                helper.deleteData(seriesFavoriteArrayList.get(position).getId());
+                helper.deleteData(String.valueOf(seriesFavoriteArrayList.get(position).getId()));
                 helper.close();
                 deleteData(holder.getAdapterPosition());
                 Toast.makeText(context, R.string.removeFromfavorite, Toast.LENGTH_SHORT).show();

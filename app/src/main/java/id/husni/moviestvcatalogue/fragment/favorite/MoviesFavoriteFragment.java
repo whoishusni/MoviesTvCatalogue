@@ -1,6 +1,7 @@
 package id.husni.moviestvcatalogue.fragment.favorite;
 
 
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.favorite.MoviesFavoriteAdapter;
 import id.husni.moviestvcatalogue.callback.MoviesCallback;
+import id.husni.moviestvcatalogue.database.MappingHelper;
 import id.husni.moviestvcatalogue.database.table.MoviesHelper;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 
@@ -82,7 +84,8 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
 
         @Override
         protected ArrayList<MoviesFavorite> doInBackground(Void... voids) {
-            return helperWeakReference.get().getAllMoviesFavorite();
+            Cursor cursor = helperWeakReference.get().getAllMoviesFavorite();
+            return MappingHelper.mapMoviesArrayToCursor(cursor);
 
         }
 

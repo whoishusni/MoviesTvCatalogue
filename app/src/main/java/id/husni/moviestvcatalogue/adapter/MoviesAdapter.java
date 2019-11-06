@@ -33,7 +33,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     public void setMovies(ArrayList<Movies> items) {
-        if (movies != null) {
+        if (movies.size() > 0) {
             movies.clear();
         }
         movies.addAll(items);

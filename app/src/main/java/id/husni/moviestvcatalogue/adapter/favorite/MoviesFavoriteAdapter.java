@@ -77,7 +77,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
             public void onClick(View v) {
                 MoviesHelper helper = MoviesHelper.getInstance(v.getContext());
                 helper.open();
-                helper.delete(moviesFavoriteArrayList.get(position).getId());
+                helper.delete(String.valueOf(moviesFavoriteArrayList.get(position).getId()));
                 helper.close();
                 deleteData(holder.getAdapterPosition());
                 Toast.makeText(context, R.string.removeFromfavorite, Toast.LENGTH_SHORT).show();

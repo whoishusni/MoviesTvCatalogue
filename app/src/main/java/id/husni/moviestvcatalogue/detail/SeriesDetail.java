@@ -3,6 +3,7 @@ package id.husni.moviestvcatalogue.detail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,8 @@ import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.Series;
 import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
+
+import static id.husni.moviestvcatalogue.database.DatabaseContract.*;
 
 public class SeriesDetail extends AppCompatActivity {
 
@@ -95,13 +98,20 @@ public class SeriesDetail extends AppCompatActivity {
         intent.putExtra(EXTRA_SERIES_DETAIL, seriesFavorite);
         intent.putExtra(EXTRA_POSITION_SERIES, position);
 
+        final ContentValues contentValues = new ContentValues();
+        contentValues.put(TITLE, seriesFavorite.getTitle());
+        contentValues.put(RATING, seriesFavorite.getVoteAverage());
+        contentValues.put(OVERVIEW, seriesFavorite.getOverview());
+        contentValues.put(POSTER, seriesFavorite.getPosterPath());
+        contentValues.put(RELEASE_DATE, seriesFavorite.getAiringDate());
+
         getMenuInflater().inflate(R.menu.menu_for_like,menu);
         MenuItem item = menu.findItem(R.id.actLike);
         LikeButton likeButton = item.getActionView().findViewById(R.id.customLikeButton);
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                long result = helper.insertData(seriesFavorite);
+                long result = helper.insertData(contentValues);
                 if (result > 0) {
                     seriesFavorite.setId((int) result);
                     setResult(AppUtilities.ADD_RESULT_CODE, intent);
@@ -113,7 +123,7 @@ public class SeriesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                helper.deleteData(seriesFavorite.getId());
+                helper.deleteData(String.valueOf(seriesFavorite.getId()));
                 Toast.makeText(SeriesDetail.this, series.getTitle() + " " + getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
 
                 /*long result = helper.deleteData(seriesFavorite.getId());

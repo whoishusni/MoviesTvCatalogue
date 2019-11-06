@@ -51,47 +51,31 @@ public class MoviesHelper {
         }
     }
 
-    public ArrayList<MoviesFavorite> getAllMoviesFavorite() {
-        ArrayList<MoviesFavorite> moviesFavoritesArray = new ArrayList<>();
-        Cursor cursor = database.query(MOVIES_FAVE_TABLE_NAME,
+    public Cursor getAllMoviesFavorite() {
+        return database.query(MOVIES_FAVE_TABLE_NAME,
                 null,
                 null,
                 null,
                 null,
                 null,
-                _ID + " ASC",
+                _ID + " ASC");
+    }
+
+    public Cursor getAllMoviesById(String id) {
+        return database.query(MOVIES_FAVE_TABLE_NAME,
+                null,
+                _ID+"= ?", new String[]{id},
+                null,
+                null,
+                null,
                 null);
-        cursor.moveToFirst();
-        MoviesFavorite moviesFavorite;
-        if (cursor.getCount() > 0) {
-            do {
-                moviesFavorite = new MoviesFavorite();
-                moviesFavorite.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
-                moviesFavorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-                moviesFavorite.setVoteAverage(cursor.getString(cursor.getColumnIndexOrThrow(RATING)));
-                moviesFavorite.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
-                moviesFavorite.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
-                moviesFavorite.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)));
-                moviesFavoritesArray.add(moviesFavorite);
-                cursor.moveToNext();
-            }
-            while (!cursor.isAfterLast());
-        }
-        cursor.close();
-        return moviesFavoritesArray;
     }
 
-    public long insert(MoviesFavorite moviesFavorite) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(TITLE, moviesFavorite.getTitle());
-        contentValues.put(RATING, moviesFavorite.getVoteAverage());
-        contentValues.put(OVERVIEW, moviesFavorite.getOverview());
-        contentValues.put(POSTER, moviesFavorite.getPosterPath());
-        contentValues.put(RELEASE_DATE, moviesFavorite.getReleaseDate());
-        return database.insert(MOVIES_FAVE_TABLE_NAME, null, contentValues);
+    public long insert(ContentValues values) {
+        return database.insert(MOVIES_FAVE_TABLE_NAME, null, values);
     }
 
-    public int delete(int id) {
-        return database.delete(MOVIES_FAVE_TABLE_NAME, _ID + "='" + id + "'",null);
+    public int delete(String id) {
+        return database.delete(MOVIES_FAVE_TABLE_NAME, _ID + "= ?", new String[]{id});
     }
 }

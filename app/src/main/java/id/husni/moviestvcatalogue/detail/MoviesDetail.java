@@ -3,6 +3,7 @@ package id.husni.moviestvcatalogue.detail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,8 @@ import id.husni.moviestvcatalogue.database.table.MoviesHelper;
 import id.husni.moviestvcatalogue.model.Movies;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
+
+import static id.husni.moviestvcatalogue.database.DatabaseContract.*;
 
 public class MoviesDetail extends AppCompatActivity {
 
@@ -96,6 +99,12 @@ public class MoviesDetail extends AppCompatActivity {
         intent.putExtra(EXTRA_MOVIES_DETAIL, moviesFavorite);
         intent.putExtra(EXTRA_POSITION_MOVIES, position);
 
+        final ContentValues contentValues = new ContentValues();
+        contentValues.put(TITLE, moviesFavorite.getTitle());
+        contentValues.put(RATING, moviesFavorite.getVoteAverage());
+        contentValues.put(OVERVIEW, moviesFavorite.getOverview());
+        contentValues.put(POSTER, moviesFavorite.getPosterPath());
+        contentValues.put(RELEASE_DATE, moviesFavorite.getReleaseDate());
 
         getMenuInflater().inflate(R.menu.menu_for_like, menu);
         MenuItem menuItem = menu.findItem(R.id.actLike);
@@ -104,7 +113,7 @@ public class MoviesDetail extends AppCompatActivity {
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                long result = helper.insert(moviesFavorite);
+                long result = helper.insert(contentValues);
                 if (result > 0) {
                     moviesFavorite.setId((int) result);
                     setResult(AppUtilities.ADD_RESULT_CODE, intent);
@@ -116,7 +125,7 @@ public class MoviesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                helper.delete(moviesFavorite.getId());
+                helper.delete(String.valueOf(moviesFavorite.getId()));
                 Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
 
                 /*long result = helper.delete(moviesFavorite.getId());
