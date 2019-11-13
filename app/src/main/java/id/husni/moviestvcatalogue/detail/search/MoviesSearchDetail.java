@@ -18,12 +18,6 @@ import id.husni.moviestvcatalogue.model.search.MovieSearch;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class MoviesSearchDetail extends AppCompatActivity {
-    private TextView title;
-    private TextView release;
-    private TextView overview;
-    private Chip chip;
-    private ImageView imageView;
-    private RatingBar ratingBar;
 
     public static final String EXTRA_MOVIES_SEARCH_DETAIL = "extra_movies_search_detail" ;
 
@@ -43,28 +37,28 @@ public class MoviesSearchDetail extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(movieSearch.getTitle());
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.customExpandedTeksStyle);
 
-        title = findViewById(R.id.tvMoviesTitleDetailSearch);
+        TextView title = findViewById(R.id.tvMoviesTitleDetailSearch);
         String titleText = movieSearch.getTitle();
         title.setText(titleText);
 
-        release = findViewById(R.id.tvMoviesReleaseDetailSearch);
+        TextView release = findViewById(R.id.tvMoviesReleaseDetailSearch);
         String releaseText = movieSearch.getRelease();
         release.setText(releaseText);
 
-        overview = findViewById(R.id.tvMoviesOverviewDetailSearch);
+        TextView overview = findViewById(R.id.tvMoviesOverviewDetailSearch);
         String overviewText = movieSearch.getOverView();
         overview.setText(overviewText);
 
-        chip = findViewById(R.id.chipRatingMoviesDetailSearch);
+        Chip chip = findViewById(R.id.chipRatingMoviesDetailSearch);
         String chipText = String.valueOf(movieSearch.getVoteAverage());
         chip.setText(chipText);
 
-        imageView = findViewById(R.id.imageMoviesDetailSearch);
+        ImageView imageView = findViewById(R.id.imageMoviesDetailSearch);
         Glide.with(this)
                 .load(AppUtilities.POSTER_FILM_DETAIL + movieSearch.getPosterPath())
                 .into(imageView);
 
-        ratingBar = findViewById(R.id.movieRatingBarDetailSearch);
+        RatingBar ratingBar = findViewById(R.id.movieRatingBarDetailSearch);
         float rating = (float) (movieSearch.getVoteAverage() / 2);
         ratingBar.setRating(rating);
     }

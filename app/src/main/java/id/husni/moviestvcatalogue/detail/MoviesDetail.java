@@ -32,12 +32,6 @@ public class MoviesDetail extends AppCompatActivity {
     public static final String EXTRA_MOVIES_DETAIL = "extra_movies_detail";
     public static final String EXTRA_POSITION_MOVIES = "extra_position_movies" ;
 
-    private TextView tvTitle;
-    private TextView tvRelease;
-    private TextView tvOverview;
-    private RatingBar ratingBar;
-    private ImageView imageMoviesDetail;
-    private Chip chip;
     private MoviesHelper helper;
     private Movies movies;
     private MoviesFavorite moviesFavorite;
@@ -67,12 +61,12 @@ public class MoviesDetail extends AppCompatActivity {
         collapsingTool.setTitle(movies.getTitle());
         collapsingTool.setExpandedTitleTextAppearance(R.style.customExpandedTeksStyle);
 
-        tvTitle = findViewById(R.id.tvMoviesTitleDetail);
-        tvRelease = findViewById(R.id.tvMoviesReleaseDetail);
-        tvOverview = findViewById(R.id.tvMoviesOverviewDetail);
-        ratingBar = findViewById(R.id.movieRatingBarDetail);
-        imageMoviesDetail = findViewById(R.id.imageMoviesDetail);
-        chip = findViewById(R.id.chipRatingMoviesDetail);
+        TextView tvTitle = findViewById(R.id.tvMoviesTitleDetail);
+        TextView tvRelease = findViewById(R.id.tvMoviesReleaseDetail);
+        TextView tvOverview = findViewById(R.id.tvMoviesOverviewDetail);
+        RatingBar ratingBar = findViewById(R.id.movieRatingBarDetail);
+        ImageView imageMoviesDetail = findViewById(R.id.imageMoviesDetail);
+        Chip chip = findViewById(R.id.chipRatingMoviesDetail);
 
 
         tvTitle.setText(movies.getTitle());

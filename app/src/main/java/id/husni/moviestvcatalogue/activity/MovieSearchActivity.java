@@ -1,7 +1,6 @@
 package id.husni.moviestvcatalogue.activity;
 
 import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +20,7 @@ import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.search.MoviesSearchAdapter;
-import id.husni.moviestvcatalogue.detail.search.MoviesSearchDetail;
 import id.husni.moviestvcatalogue.model.search.MovieSearch;
-import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.search.MoviesSearchViewModel;
 
 public class MovieSearchActivity extends AppCompatActivity {

@@ -31,12 +31,6 @@ public class SeriesDetail extends AppCompatActivity {
 
     public static final String EXTRA_SERIES_DETAIL = "extra_series" ;
     public static final String EXTRA_POSITION_SERIES = "extra_position_series" ;
-    private TextView tvTitle;
-    private TextView tvAiring;
-    private TextView tvOverview;
-    private RatingBar ratingBar;
-    private ImageView imageSeriesDetail;
-    private Chip chip;
     private SeriesHelper helper;
     private SeriesFavorite seriesFavorite;
     private int position;
@@ -66,12 +60,12 @@ public class SeriesDetail extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(series.getTitle());
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.customExpandedTeksStyle);
 
-        tvTitle = findViewById(R.id.tvSeriesTitleDetail);
-        tvAiring = findViewById(R.id.tvSeriesAiringDetail);
-        imageSeriesDetail = findViewById(R.id.imageSeriesDetail);
-        tvOverview = findViewById(R.id.tvSeriesOverviewDetail);
-        ratingBar = findViewById(R.id.seriesRatingBarDetail);
-        chip = findViewById(R.id.chipRatingSeriesDetail);
+        TextView tvTitle = findViewById(R.id.tvSeriesTitleDetail);
+        TextView tvAiring = findViewById(R.id.tvSeriesAiringDetail);
+        ImageView imageSeriesDetail = findViewById(R.id.imageSeriesDetail);
+        TextView tvOverview = findViewById(R.id.tvSeriesOverviewDetail);
+        RatingBar ratingBar = findViewById(R.id.seriesRatingBarDetail);
+        Chip chip = findViewById(R.id.chipRatingSeriesDetail);
 
 
         tvTitle.setText(series.getTitle());

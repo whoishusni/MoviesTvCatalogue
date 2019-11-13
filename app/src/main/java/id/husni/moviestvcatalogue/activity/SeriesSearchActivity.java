@@ -102,6 +102,7 @@ public class SeriesSearchActivity extends AppCompatActivity {
                 public boolean onQueryTextChange(String newText) {
                     if (newText.isEmpty()) {
                         recyclerView.setAdapter(null);
+                        showText(true);
                     } else {
                         recyclerView.setAdapter(adapter);
                         model.setData(newText);

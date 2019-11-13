@@ -25,15 +25,12 @@ import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
-import id.husni.moviestvcatalogue.utilities.CustomClickListener;
 import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
     private MoviesAdapter adapter;
     private MoviesFavoriteAdapter favoriteAdapter;
-    private MoviesViewModel model;
-    private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
     public MoviesFragment() {
@@ -56,12 +53,12 @@ public class MoviesFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progressBarMovies);
 
-        recyclerView = view.findViewById(R.id.recyclerMovies);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerMovies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
         recyclerView.setAdapter(scaleAdapter);
 
-        model = ViewModelProviders.of(this).get(MoviesViewModel.class);
+        MoviesViewModel model = ViewModelProviders.of(this).get(MoviesViewModel.class);
         model.setMoviesData();
         showLoading(true);
         model.getMoviesData().observe(this, moviesObserver);

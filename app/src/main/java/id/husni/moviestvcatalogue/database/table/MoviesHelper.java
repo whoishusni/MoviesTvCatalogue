@@ -7,17 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-
 import id.husni.moviestvcatalogue.database.DatabaseHelper;
-import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 
 import static id.husni.moviestvcatalogue.database.DatabaseContract.MOVIES_FAVE_TABLE_NAME;
-import static id.husni.moviestvcatalogue.database.DatabaseContract.OVERVIEW;
-import static id.husni.moviestvcatalogue.database.DatabaseContract.POSTER;
-import static id.husni.moviestvcatalogue.database.DatabaseContract.RATING;
-import static id.husni.moviestvcatalogue.database.DatabaseContract.RELEASE_DATE;
-import static id.husni.moviestvcatalogue.database.DatabaseContract.TITLE;
 import static id.husni.moviestvcatalogue.database.DatabaseContract._ID;
 
 public class MoviesHelper {
