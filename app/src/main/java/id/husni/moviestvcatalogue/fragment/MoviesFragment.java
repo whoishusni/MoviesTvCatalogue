@@ -73,15 +73,6 @@ public class MoviesFragment extends Fragment {
         public void onChanged(final ArrayList<Movies> movies) {
             adapter.setMovies(movies);
             showLoading(false);
-            CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
-                @Override
-                public void onItemClicked(RecyclerView recyclerView, int position, View view) {
-                    Intent detailIntent = new Intent(recyclerView.getContext(), MoviesDetail.class);
-                    detailIntent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
-                    detailIntent.putExtra(MoviesDetail.EXTRA_POSITION_MOVIES, position);
-                    startActivityForResult(detailIntent, AppUtilities.ADD_REQUEST_CODE);
-                }
-            });
         }
     };
 
@@ -101,10 +92,10 @@ public class MoviesFragment extends Fragment {
                 MoviesFavorite moviesFavorite = data.getParcelableExtra(MoviesDetail.EXTRA_MOVIES_DETAIL);
                 favoriteAdapter.insertData(moviesFavorite);
             }
-            /*else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+            else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
                 int position = data.getIntExtra(MoviesDetail.EXTRA_POSITION_MOVIES, 0);
                 favoriteAdapter.deleteData(position);
-            }*/
+            }
         }
     }
 }

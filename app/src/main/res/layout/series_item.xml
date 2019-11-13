@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/cardview_margin"
@@ -63,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textSize="12sp"
-                        tools:text="0.0"/>
+                        tools:text="0.0" />
                 </LinearLayout>
 
                 <TextView

@@ -123,16 +123,13 @@ public class SeriesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                helper.deleteData(String.valueOf(seriesFavorite.getId()));
-                Toast.makeText(SeriesDetail.this, series.getTitle() + " " + getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
-
-                /*long result = helper.deleteData(seriesFavorite.getId());
+                long result = helper.deleteData(String.valueOf(seriesFavorite.getId()));
                 if (result > 0) {
                     setResult(AppUtilities.DELETE_RESULT_CODE, intent);
                     Toast.makeText(SeriesDetail.this, series.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SeriesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }
         });
         return super.onCreateOptionsMenu(menu);

@@ -125,16 +125,13 @@ public class MoviesDetail extends AppCompatActivity {
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                helper.delete(String.valueOf(moviesFavorite.getId()));
-                Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
-
-                /*long result = helper.delete(moviesFavorite.getId());
+                long result = helper.delete(String.valueOf(moviesFavorite.getId()));
                 if (result > 0) {
                     setResult(AppUtilities.DELETE_RESULT_CODE, intent);
                     Toast.makeText(MoviesDetail.this, movies.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MoviesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }
         });
         return super.onCreateOptionsMenu(menu);

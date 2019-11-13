@@ -79,15 +79,6 @@ public class SeriesFragment extends Fragment {
         public void onChanged(final ArrayList<Series> series) {
             adapter.setSeriesArrayList(series);
             showLoading(false);
-            CustomClickListener.add(recyclerView).setOnClickItem(new CustomClickListener.OnClickItem() {
-                @Override
-                public void onItemClicked(RecyclerView recyclerView, int position, View view) {
-                    Intent intent = new Intent(getActivity(), SeriesDetail.class);
-                    intent.putExtra(SeriesDetail.EXTRA_SERIES_DETAIL, series.get(position));
-                    intent.putExtra(SeriesDetail.EXTRA_POSITION_SERIES, position);
-                    startActivityForResult(intent, AppUtilities.ADD_REQUEST_CODE);
-                }
-            });
         }
     };
 
@@ -107,10 +98,10 @@ public class SeriesFragment extends Fragment {
                 SeriesFavorite seriesFavorite = data.getParcelableExtra(SeriesDetail.EXTRA_SERIES_DETAIL);
                 favoriteAdapter.insertData(seriesFavorite);
             }
-            /*else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
+            else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
                 int position = data.getIntExtra(SeriesDetail.EXTRA_POSITION_SERIES, 0);
                 favoriteAdapter.deleteData(position);
-            }*/
+            }
         }
     }
 }

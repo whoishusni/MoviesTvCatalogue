@@ -48,7 +48,7 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
         notifyItemInserted(seriesFavoriteArrayList.size() - 1);
     }
 
-    private void deleteData(int position) {
+    public void deleteData(int position) {
         seriesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeRemoved(position, seriesFavoriteArrayList.size());

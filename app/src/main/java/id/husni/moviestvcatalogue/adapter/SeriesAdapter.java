@@ -1,6 +1,8 @@
 package id.husni.moviestvcatalogue.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,8 +20,10 @@ import com.robertlevonyan.views.chip.Chip;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.detail.SeriesDetail;
 import id.husni.moviestvcatalogue.model.Series;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
+import id.husni.moviestvcatalogue.utilities.CustomItemClick;
 
 public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder> {
     private ArrayList<Series> seriesArrayList = new ArrayList<>();
@@ -33,7 +38,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     }
 
     public void setSeriesArrayList(ArrayList<Series> items) {
-        if (seriesArrayList != null) {
+        if (seriesArrayList.size() > 0) {
             seriesArrayList.clear();
         }
         seriesArrayList.addAll(items);
@@ -57,6 +62,17 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
         Glide.with(context)
                 .load(AppUtilities.POSTER_FILM + seriesArrayList.get(position).getPosterPath())
                 .into(holder.imageSeries);
+        holder.cvSeries.setOnClickListener(new CustomItemClick(position, new CustomItemClick.OnItemClick() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(context, SeriesDetail.class);
+                intent.putExtra(SeriesDetail.EXTRA_SERIES_DETAIL, seriesArrayList.get(position));
+                intent.putExtra(SeriesDetail.EXTRA_POSITION_SERIES, position);
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivityForResult(intent, AppUtilities.ADD_REQUEST_CODE);
+                }
+            }
+        }));
     }
 
     @Override
@@ -65,6 +81,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        CardView cvSeries;
         TextView tvTitle;
         Chip chipRating;
         TextView tvAiring;
@@ -79,6 +96,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
             tvAiring = itemView.findViewById(R.id.tvSeriesAiring);
             ratingBar = itemView.findViewById(R.id.seriesRatingBar);
             imageSeries = itemView.findViewById(R.id.seriesImage);
+            cvSeries = itemView.findViewById(R.id.cvSeries);
         }
     }
 }

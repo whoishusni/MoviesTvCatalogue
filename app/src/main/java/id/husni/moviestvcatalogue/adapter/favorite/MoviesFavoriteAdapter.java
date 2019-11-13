@@ -48,7 +48,7 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
         notifyItemInserted(moviesFavoriteArrayList.size() - 1);
     }
 
-    private void deleteData(int position) {
+    public void deleteData(int position) {
         moviesFavoriteArrayList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, moviesFavoriteArrayList.size());

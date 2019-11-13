@@ -1,6 +1,8 @@
 package id.husni.moviestvcatalogue.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,8 +20,10 @@ import com.robertlevonyan.views.chip.Chip;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
+import id.husni.moviestvcatalogue.utilities.CustomItemClick;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     private ArrayList<Movies> movies = new ArrayList<>();
@@ -57,6 +62,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         Glide.with(context)
                 .load(AppUtilities.POSTER_FILM + movies.get(position).getPosterPath())
                 .into(holder.imageMovies);
+        holder.cvMovies.setOnClickListener(new CustomItemClick(position, new CustomItemClick.OnItemClick() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(context, MoviesDetail.class);
+                intent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
+                intent.putExtra(MoviesDetail.EXTRA_POSITION_MOVIES, position);
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivityForResult(intent,AppUtilities.ADD_REQUEST_CODE);
+                }
+            }
+        }));
     }
 
     @Override
@@ -65,6 +81,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        CardView cvMovies;
         Chip chipRating;
         TextView tvTitle;
         TextView tvReleaseDate;
@@ -79,6 +96,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             tvReleaseDate = itemView.findViewById(R.id.tvMovieRelease);
             ratingBar = itemView.findViewById(R.id.movieRatingBar);
             imageMovies = itemView.findViewById(R.id.movieImage);
+            cvMovies = itemView.findViewById(R.id.cvMovies);
         }
     }
 }

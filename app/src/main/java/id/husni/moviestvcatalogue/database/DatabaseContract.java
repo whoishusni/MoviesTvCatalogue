@@ -10,6 +10,4 @@ public class DatabaseContract implements BaseColumns {
     public static final String OVERVIEW = "overview";
     public static final String POSTER = "poster";
     public static final String RELEASE_DATE = "releasedate";
-
-
 }
