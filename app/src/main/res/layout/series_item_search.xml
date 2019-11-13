@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvMoviesSearch"
+        android:id="@+id/cvSeriesSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/cardview_margin"
@@ -20,7 +20,7 @@
             android:padding="@dimen/padding_all">
 
             <ImageView
-                android:id="@+id/movieSearchImage"
+                android:id="@+id/seriesSearchImage"
                 android:layout_width="80dp"
                 android:layout_height="120dp"
                 android:contentDescription="@string/movie_image"
@@ -31,11 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/recycler_image_to_text"
-                android:layout_toEndOf="@id/movieSearchImage"
+                android:layout_toEndOf="@id/seriesSearchImage"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvMovieSearchTitle"
+                    android:id="@+id/tvSeriesSearchTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/recycler_title_to_genre"
@@ -51,7 +51,7 @@
                     android:orientation="horizontal">
 
                     <RatingBar
-                        android:id="@+id/movieSearchRatingBar"
+                        android:id="@+id/seriesSearchRatingBar"
                         style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                         android:numStars="5" />
 
                     <com.robertlevonyan.views.chip.Chip
-                        android:id="@+id/chipMovieSearchRating"
+                        android:id="@+id/chipSeriesSearchRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -68,7 +68,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvMovieSearchRelease"
+                    android:id="@+id/tvSeriesSearchRelease"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Release Date" />

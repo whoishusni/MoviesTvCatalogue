@@ -1,7 +1,6 @@
 package id.husni.moviestvcatalogue.activity;
 
 import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,51 +19,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
-import id.husni.moviestvcatalogue.adapter.search.MoviesSearchAdapter;
-import id.husni.moviestvcatalogue.detail.search.MoviesSearchDetail;
-import id.husni.moviestvcatalogue.model.search.MovieSearch;
-import id.husni.moviestvcatalogue.utilities.CustomClickListener;
-import id.husni.moviestvcatalogue.viewmodel.search.MoviesSearchViewModel;
+import id.husni.moviestvcatalogue.adapter.search.SeriesSearchAdapter;
+import id.husni.moviestvcatalogue.model.search.SeriesSearch;
+import id.husni.moviestvcatalogue.viewmodel.search.SeriesSearchViewModel;
 
-public class MovieSearchActivity extends AppCompatActivity {
-    private MoviesSearchAdapter adapter;
-    private ProgressBar progressBar;
-    private TextView emptyText;
-    private MoviesSearchViewModel model;
-    private RecyclerView recyclerView;
+public class SeriesSearchActivity extends AppCompatActivity {
+    SeriesSearchViewModel model;
+    ProgressBar progressBar;
+    TextView emptyText;
+    SeriesSearchAdapter adapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_search);
-
-        Toolbar tbar = findViewById(R.id.tbarMovieSearch);
-        setSupportActionBar(tbar);
+        setContentView(R.layout.activity_series_search);
+        Toolbar toolbar = findViewById(R.id.tbarSeriesSearch);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        progressBar = findViewById(R.id.progressBarMoviesSearch);
 
-        emptyText = findViewById(R.id.emptyTextMovieSearch);
+        progressBar = findViewById(R.id.progressBarSeriesSearch);
 
-        adapter = new MoviesSearchAdapter(this);
+        emptyText = findViewById(R.id.emptyTextSeriesSearch);
 
-        recyclerView = findViewById(R.id.recyclerMovieSearch);
+        adapter = new SeriesSearchAdapter(this);
+        recyclerView = findViewById(R.id.recyclerSeriesSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        model = ViewModelProviders.of(this).get(MoviesSearchViewModel.class);
-        model.getData().observe(this,myObserver);
-
+        model = ViewModelProviders.of(this).get(SeriesSearchViewModel.class);
+        model.getSearchData().observe(this,searchObserver);
     }
 
-    private Observer<ArrayList<MovieSearch>> myObserver = new Observer<ArrayList<MovieSearch>>() {
+    Observer<ArrayList<SeriesSearch>> searchObserver = new Observer<ArrayList<SeriesSearch>>() {
         @Override
-        public void onChanged(final ArrayList<MovieSearch> movieSearches) {
-                adapter.setMovieSearches(movieSearches);
-                showLoading(false);
+        public void onChanged(ArrayList<SeriesSearch> seriesSearches) {
+            adapter.setSeriesSearches(seriesSearches);
+            showLoading(false);
+
         }
     };
-
     private void showLoading(boolean isLoading) {
         if (isLoading) {
             progressBar.setVisibility(View.VISIBLE);
@@ -82,11 +77,19 @@ public class MovieSearchActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_movies, menu);
+        getMenuInflater().inflate(R.menu.menu_search_series, menu);
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         if (searchManager != null) {
-            SearchView searchView = (SearchView) menu.findItem(R.id.searchMovie).getActionView();
+            SearchView searchView = (SearchView) menu.findItem(R.id.searchSeries).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -99,7 +102,6 @@ public class MovieSearchActivity extends AppCompatActivity {
                 public boolean onQueryTextChange(String newText) {
                     if (newText.isEmpty()) {
                         recyclerView.setAdapter(null);
-                        showText(true);
                     } else {
                         recyclerView.setAdapter(adapter);
                         model.setData(newText);
@@ -111,13 +113,5 @@ public class MovieSearchActivity extends AppCompatActivity {
             });
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

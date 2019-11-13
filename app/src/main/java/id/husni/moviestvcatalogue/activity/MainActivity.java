@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.actSearchMovie:
                 Intent searchMovieIntent = new Intent(MainActivity.this, MovieSearchActivity.class);
                 startActivity(searchMovieIntent);
+            case R.id.actSearchSeries:
+                Intent searchSeriesIntent = new Intent(MainActivity.this, SeriesSearchActivity.class);
+                startActivity(searchSeriesIntent);
         }
         return super.onOptionsItemSelected(item);
     }

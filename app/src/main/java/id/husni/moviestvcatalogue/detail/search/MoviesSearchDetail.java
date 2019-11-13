@@ -33,6 +33,7 @@ public class MoviesSearchDetail extends AppCompatActivity {
         setContentView(R.layout.activity_movies_search_detail);
 
         MovieSearch movieSearch = getIntent().getParcelableExtra(EXTRA_MOVIES_SEARCH_DETAIL);
+
         Toolbar tbar = findViewById(R.id.tbarMoviesDetailSearch);
         setSupportActionBar(tbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
