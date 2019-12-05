@@ -7,13 +7,16 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import id.husni.moviestvcatalogue.R;
-import id.husni.moviestvcatalogue.broadcast.DailyReceiver;
+import id.husni.moviestvcatalogue.reminder.DailyReceiver;
+import id.husni.moviestvcatalogue.reminder.ReleaseReceiver;
 
 public class ReminderPreference extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private String DAILY;
+    private String RELEASE;
 
     private SwitchPreference dailySwitchPref;
+    private SwitchPreference releaseSwitchPref;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.reminder_preference);
@@ -24,7 +27,9 @@ public class ReminderPreference extends PreferenceFragmentCompat implements Shar
 
     private void init() {
         DAILY = getResources().getString(R.string.key_reminder_daily);
+        RELEASE = getResources().getString(R.string.key_reminder_release);
         dailySwitchPref = findPreference(DAILY);
+        releaseSwitchPref = findPreference(RELEASE);
     }
 
     @Override
@@ -42,16 +47,25 @@ public class ReminderPreference extends PreferenceFragmentCompat implements Shar
     private void summary() {
         SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
         dailySwitchPref.setChecked(sharedPreferences.getBoolean(DAILY, false));
+        releaseSwitchPref.setChecked(sharedPreferences.getBoolean(RELEASE, false));
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         DailyReceiver dailyReceiver = new DailyReceiver();
+        ReleaseReceiver releaseReceiver = new ReleaseReceiver();
         if (key.equals(DAILY)) {
             if (dailySwitchPref.isChecked()) {
-                dailyReceiver.setDailyReminder(getContext(), DailyReceiver.TYPE_DAILY);
+                dailyReceiver.setDailyReminder(getContext());
             } else {
-                dailyReceiver.setCancelDailyReminder(getContext(), DailyReceiver.TYPE_DAILY);
+                dailyReceiver.setCancelDailyReminder(getContext());
+            }
+        }
+        if (key.equals(RELEASE)) {
+            if (releaseSwitchPref.isChecked()) {
+                releaseReceiver.setReleaseReminder(getContext());
+            } else {
+                releaseReceiver.setCancelReleaseReminder(getContext());
             }
         }
     }

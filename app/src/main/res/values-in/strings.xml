@@ -21,11 +21,15 @@
     <string name="key_reminder_daily">key_reminder_daily</string>
     <string name="key_reminder_release">key_reminder_release</string>
     <string name="release_reminder">Pengingat Rilisan Baru</string>
-    <string name="release_reminder_summary">Pengingat Tentang Rilis Hari Ini</string>
+    <string name="release_reminder_summary">Pengingat Rilis Hari Ini Jam 08:00</string>
     <string name="toast_notsetup_daily">Pengingat Harian Tidak Diatur</string>
     <string name="toast_setup_daily">Pengingat Harian Telah Diatur</string>
     <string name="searchMovie">Pencarian Film</string>
     <string name="empty_search">Pencarian Masih Kosong</string>
     <string name="search">Cari</string>
     <string name="searchSeries">Pencarian Series</string>
+    <string name="emptyData">Data Kosong</string>
+    <string name="appwidget_text">Widget Film</string>
+    <string name="toast_nosetup_reminder">Pengingat Release Tidak Diatur</string>
+    <string name="toast_setup_reminder">Pengingat Release Diatur</string>
 </resources>

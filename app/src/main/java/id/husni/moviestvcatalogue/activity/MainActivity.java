@@ -1,9 +1,6 @@
 package id.husni.moviestvcatalogue.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -69,32 +66,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_item, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.actChangeLang:
-                Intent langIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                startActivity(langIntent);
-                break;
-            case R.id.actReminder:
-                Intent reminderIntent = new Intent(MainActivity.this, ReminderActivity.class);
-                startActivity(reminderIntent);
-                break;
-            case R.id.actSearchMovie:
-                Intent searchMovieIntent = new Intent(MainActivity.this, MovieSearchActivity.class);
-                startActivity(searchMovieIntent);
-                break;
-            case R.id.actSearchSeries:
-                Intent searchSeriesIntent = new Intent(MainActivity.this, SeriesSearchActivity.class);
-                startActivity(searchSeriesIntent);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

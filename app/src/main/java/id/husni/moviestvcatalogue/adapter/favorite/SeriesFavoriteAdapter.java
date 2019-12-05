@@ -36,8 +36,10 @@ public class SeriesFavoriteAdapter extends RecyclerView.Adapter<SeriesFavoriteAd
     }
 
     public void setSeriesFavoriteArrayList(ArrayList<SeriesFavorite> items) {
-        if (seriesFavoriteArrayList.size() >0) {
-            seriesFavoriteArrayList.clear();
+        if (seriesFavoriteArrayList != null) {
+            if (seriesFavoriteArrayList.size() > 0) {
+                seriesFavoriteArrayList.clear();
+            }
         }
         seriesFavoriteArrayList.addAll(items);
         notifyDataSetChanged();

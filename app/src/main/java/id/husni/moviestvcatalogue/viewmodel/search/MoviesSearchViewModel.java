@@ -21,7 +21,7 @@ import id.husni.moviestvcatalogue.model.search.MovieSearch;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
 public class MoviesSearchViewModel extends ViewModel {
-    MutableLiveData<ArrayList<MovieSearch>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<MovieSearch>> mutableLiveData = new MutableLiveData<>();
 
     public void setData(String searchText) {
         final ArrayList<MovieSearch> movieSearchArrayList = new ArrayList<>();

@@ -38,8 +38,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     public void setMovies(ArrayList<Movies> items) {
-        if (movies.size() > 0) {
-            movies.clear();
+        if (movies != null) {
+            if (movies.size() > 0) {
+                movies.clear();
+            }
         }
         movies.addAll(items);
         notifyDataSetChanged();
@@ -69,7 +71,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 intent.putExtra(MoviesDetail.EXTRA_MOVIES_DETAIL, movies.get(position));
                 intent.putExtra(MoviesDetail.EXTRA_POSITION_MOVIES, position);
                 if (context instanceof Activity) {
-                    ((Activity) context).startActivityForResult(intent,AppUtilities.ADD_REQUEST_CODE);
+                    context.startActivity(intent);
                 }
             }
         }));

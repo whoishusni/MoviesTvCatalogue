@@ -43,4 +43,28 @@ public class MappingHelper {
         }
         return seriesFavorites;
     }
+
+    public static MoviesFavorite mapMoviesToObject(Cursor cursor) {
+        cursor.moveToFirst();
+
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
+        String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
+        String overview = cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW));
+        String releaseDate = cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE));
+        String poster = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
+        String rating = cursor.getString(cursor.getColumnIndexOrThrow(RATING));
+        return new MoviesFavorite(id, title, overview, releaseDate, poster, rating);
+    }
+
+    public static SeriesFavorite mapSeriesToObject(Cursor cursor) {
+        cursor.moveToFirst();
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
+        String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
+        String overview = cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW));
+        String releaseDate = cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE));
+        String poster = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
+        String rating = cursor.getString(cursor.getColumnIndexOrThrow(RATING));
+        return new SeriesFavorite(id, title, overview, releaseDate, poster, rating);
+
+    }
 }

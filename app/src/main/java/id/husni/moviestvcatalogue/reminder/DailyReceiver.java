@@ -1,4 +1,4 @@
-package id.husni.moviestvcatalogue.broadcast;
+package id.husni.moviestvcatalogue.reminder;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -25,7 +25,6 @@ public class DailyReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID ="daily_channel_id" ;
     private static final String CHANNEL_NAME = "daily_channel_name" ;
     public static final String TYPE_DAILY ="type_daily" ;
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -61,7 +60,7 @@ public class DailyReceiver extends BroadcastReceiver {
         }
     }
 
-    public void setDailyReminder(Context context, String type) {
+    public void setDailyReminder(Context context) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -71,7 +70,6 @@ public class DailyReceiver extends BroadcastReceiver {
         calendar.set(Calendar.SECOND, 0);
 
         Intent intent = new Intent(context, DailyReceiver.class);
-        intent.putExtra(TYPE_DAILY, type);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, AppUtilities.DAILY_REQUEST_CODE, intent, 0);
 
         if (alarmManager != null) {
@@ -80,7 +78,7 @@ public class DailyReceiver extends BroadcastReceiver {
         Toast.makeText(context, R.string.toast_setup_daily, Toast.LENGTH_SHORT).show();
     }
 
-    public void setCancelDailyReminder(Context context, String type) {
+    public void setCancelDailyReminder(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, DailyReceiver.class);
 

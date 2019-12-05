@@ -1,6 +1,8 @@
 package id.husni.moviestvcatalogue.fragment.favorite;
 
 
+import android.content.Context;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +26,9 @@ import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.favorite.SeriesFavoriteAdapter;
 import id.husni.moviestvcatalogue.callback.SeriesCallback;
 import id.husni.moviestvcatalogue.database.MappingHelper;
-import id.husni.moviestvcatalogue.database.table.SeriesHelper;
 import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
+
+import static id.husni.moviestvcatalogue.database.DatabaseContract.URI_SERIES;
 
 
 /**
@@ -31,8 +36,6 @@ import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
  */
 public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
 
-    private SeriesHelper helper;
-    SeriesFavorite seriesFavorite;
     private SeriesFavoriteAdapter adapter;
 
     public SeriesFavoriteFragment() {
@@ -55,11 +58,15 @@ public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
         adapter = new SeriesFavoriteAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        helper = SeriesHelper.getInstance(getContext());
-        helper.open();
+        HandlerThread handlerThread = new HandlerThread("SeriesObserver");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+
+        SeriesObserver seriesObserver = new SeriesObserver(handler, getContext());
+        getContext().getContentResolver().registerContentObserver(URI_SERIES,true,seriesObserver);
 
         if (savedInstanceState == null) {
-            new MyAsyncData(helper, this).execute();
+            new MyAsyncData(getContext(), this).execute();
         } else {
             ArrayList<SeriesFavorite> seriesFavoritesList = new ArrayList<>();
             if (seriesFavoritesList != null) {
@@ -74,17 +81,18 @@ public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
     }
 
     private static class MyAsyncData extends AsyncTask<Void, Void, ArrayList<SeriesFavorite>> {
-        WeakReference<SeriesHelper> helperWeakReference;
+        WeakReference<Context> contextWeakReference;
         WeakReference<SeriesCallback> callbackWeakReference;
 
-        MyAsyncData(SeriesHelper helper, SeriesCallback callback) {
-            helperWeakReference = new WeakReference<>(helper);
+        MyAsyncData(Context context, SeriesCallback callback) {
+            contextWeakReference = new WeakReference<>(context);
             callbackWeakReference = new WeakReference<>(callback);
         }
 
         @Override
         protected ArrayList<SeriesFavorite> doInBackground(Void... voids) {
-            Cursor cursor = helperWeakReference.get().getSeriesFavoriteData();
+            Context context = contextWeakReference.get();
+            Cursor cursor = context.getContentResolver().query(URI_SERIES, null, null, null, null);
             return MappingHelper.mapSeriesArrayToCursor(cursor);
         }
 
@@ -98,6 +106,13 @@ public class SeriesFavoriteFragment extends Fragment implements SeriesCallback {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        helper.close();
+    }
+
+    private class SeriesObserver extends ContentObserver {
+        Context context;
+        public SeriesObserver(Handler handler, Context context) {
+            super(handler);
+            this.context = context;
+        }
     }
 }

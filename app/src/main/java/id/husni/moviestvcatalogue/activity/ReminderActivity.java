@@ -19,8 +19,10 @@ public class ReminderActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.reminderTbar);
         toolbar.setTitle("Reminder");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         getSupportFragmentManager().beginTransaction().add(R.id.linearBaseSetting, new ReminderPreference()).commit();
     }

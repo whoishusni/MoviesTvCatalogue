@@ -36,8 +36,10 @@ public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAd
     }
 
     public void setMoviesFavoriteArrayList(ArrayList<MoviesFavorite> items) {
-        if (moviesFavoriteArrayList.size() > 0) {
-            moviesFavoriteArrayList.clear();
+        if (moviesFavoriteArrayList != null) {
+            if (moviesFavoriteArrayList.size() > 0) {
+                moviesFavoriteArrayList.clear();
+            }
         }
         moviesFavoriteArrayList.addAll(items);
         notifyDataSetChanged();

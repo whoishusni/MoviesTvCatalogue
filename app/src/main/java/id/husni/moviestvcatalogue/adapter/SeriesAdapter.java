@@ -38,8 +38,10 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     }
 
     public void setSeriesArrayList(ArrayList<Series> items) {
-        if (seriesArrayList.size() > 0) {
-            seriesArrayList.clear();
+        if (seriesArrayList != null) {
+            if (seriesArrayList.size() > 0) {
+                seriesArrayList.clear();
+            }
         }
         seriesArrayList.addAll(items);
         notifyDataSetChanged();
@@ -69,7 +71,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
                 intent.putExtra(SeriesDetail.EXTRA_SERIES_DETAIL, seriesArrayList.get(position));
                 intent.putExtra(SeriesDetail.EXTRA_POSITION_SERIES, position);
                 if (context instanceof Activity) {
-                    ((Activity) context).startActivityForResult(intent, AppUtilities.ADD_REQUEST_CODE);
+                   context.startActivity(intent);
                 }
             }
         }));

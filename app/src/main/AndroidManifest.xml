@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <permission
+        android:name="id.husni.moviestvcatalogue.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="id.husni.moviestvcatalogue.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,15 +20,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detail.search.SeriesSearchDetail"></activity>
+        <receiver
+            android:name=".reminder.ReleaseReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+        <receiver android:name=".widget.MoviesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/movies_widget_info" />
+        </receiver>
+
+        <provider
+            android:name=".provider.CatalogueProvider"
+            android:authorities="id.husni.moviestvcatalogue"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="id.husni.moviestvcatalogue.READ_DATABASE"
+            android:writePermission="id.husni.moviestvcatalogue.WRITE_DATABASE" />
+
+        <activity android:name=".detail.search.SeriesSearchDetail" />
         <activity android:name=".activity.SeriesSearchActivity" />
         <activity android:name=".detail.search.MoviesSearchDetail" />
         <activity android:name=".activity.MovieSearchActivity" />
 
         <receiver
-            android:name=".broadcast.DailyReceiver"
+            android:name=".reminder.DailyReceiver"
             android:enabled="true"
             android:exported="true" />
+
+        <service
+            android:name=".widget.MoviesWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity android:name=".activity.ReminderActivity" />
         <activity android:name=".detail.SeriesDetail" />

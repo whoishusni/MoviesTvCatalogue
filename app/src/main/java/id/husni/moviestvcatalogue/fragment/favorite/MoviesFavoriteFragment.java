@@ -1,6 +1,8 @@
 package id.husni.moviestvcatalogue.fragment.favorite;
 
 
+import android.content.Context;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +26,9 @@ import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.adapter.favorite.MoviesFavoriteAdapter;
 import id.husni.moviestvcatalogue.callback.MoviesCallback;
 import id.husni.moviestvcatalogue.database.MappingHelper;
-import id.husni.moviestvcatalogue.database.table.MoviesHelper;
 import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
+
+import static id.husni.moviestvcatalogue.database.DatabaseContract.URI_MOVIES;
 
 
 /**
@@ -32,8 +37,6 @@ import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
 public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
 
     private MoviesFavoriteAdapter adapter;
-    private MoviesHelper helper;
-    MoviesFavorite moviesFavorite;
 
     public MoviesFavoriteFragment() {
         // Required empty public constructor
@@ -55,11 +58,15 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        helper = MoviesHelper.getInstance(getContext());
-        helper.open();
+        HandlerThread handlerThread = new HandlerThread("MoviesObserver");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+
+        MoviesObserver moviesObserver = new MoviesObserver(handler, getContext());
+        getContext().getContentResolver().registerContentObserver(URI_MOVIES, true, moviesObserver);
 
         if (savedInstanceState == null) {
-            new MyAsyncData(helper, this).execute();
+            new MyAsyncData(getContext(), this).execute();
         } else {
             ArrayList<MoviesFavorite> moviesFaveList = new ArrayList<>();
             if (moviesFaveList != null) {
@@ -74,17 +81,18 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
     }
 
     private static class MyAsyncData extends AsyncTask<Void,Void, ArrayList<MoviesFavorite>>{
-        WeakReference<MoviesHelper> helperWeakReference;
+        WeakReference<Context> contextWeakReference;
         WeakReference<MoviesCallback> callbackWeakReference;
 
-        MyAsyncData(MoviesHelper helper, MoviesCallback callback) {
-            helperWeakReference = new WeakReference<>(helper);
+        MyAsyncData(Context context, MoviesCallback callback) {
+            contextWeakReference = new WeakReference<>(context);
             callbackWeakReference = new WeakReference<>(callback);
         }
 
         @Override
         protected ArrayList<MoviesFavorite> doInBackground(Void... voids) {
-            Cursor cursor = helperWeakReference.get().getAllMoviesFavorite();
+            Context context = contextWeakReference.get();
+            Cursor cursor = context.getContentResolver().query(URI_MOVIES, null, null, null, null);
             return MappingHelper.mapMoviesArrayToCursor(cursor);
 
         }
@@ -99,6 +107,13 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        helper.close();
+    }
+
+    private class MoviesObserver extends ContentObserver {
+        Context context;
+        public MoviesObserver(Handler handler, Context context) {
+            super(handler);
+            this.context = context;
+        }
     }
 }

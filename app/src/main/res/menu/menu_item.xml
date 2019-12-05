@@ -2,12 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
-        android:id="@+id/actSearchMovie"
-        android:title="@string/searchMovie"/>
-    <item
-        android:id="@+id/actSearchSeries"
-        android:title="@string/searchSeries" />
+        android:id="@+id/actSearch"
+        android:icon="@drawable/ic_search_white"
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/actChangeLang"
         android:title="@string/change_languange"

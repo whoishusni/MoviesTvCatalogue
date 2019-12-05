@@ -24,11 +24,12 @@ import id.husni.moviestvcatalogue.model.search.SeriesSearch;
 import id.husni.moviestvcatalogue.viewmodel.search.SeriesSearchViewModel;
 
 public class SeriesSearchActivity extends AppCompatActivity {
-    SeriesSearchViewModel model;
-    ProgressBar progressBar;
-    TextView emptyText;
-    SeriesSearchAdapter adapter;
-    RecyclerView recyclerView;
+    public static final String QUERY_EXTRA = "queryExtra" ;
+    private SeriesSearchViewModel model;
+    private ProgressBar progressBar;
+    private TextView emptyText;
+    private SeriesSearchAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,11 @@ public class SeriesSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_series_search);
         Toolbar toolbar = findViewById(R.id.tbarSeriesSearch);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getResources().getString(R.string.searchSeries));
+        }
 
         progressBar = findViewById(R.id.progressBarSeriesSearch);
 
@@ -48,7 +52,10 @@ public class SeriesSearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        String queryExtra = getIntent().getStringExtra(QUERY_EXTRA);
         model = ViewModelProviders.of(this).get(SeriesSearchViewModel.class);
+        model.setData(queryExtra);
+        showLoading(true);
         model.getSearchData().observe(this,searchObserver);
     }
 
@@ -86,10 +93,10 @@ public class SeriesSearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_series, menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         if (searchManager != null) {
-            SearchView searchView = (SearchView) menu.findItem(R.id.searchSeries).getActionView();
+            SearchView searchView = (SearchView) menu.findItem(R.id.searchData).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

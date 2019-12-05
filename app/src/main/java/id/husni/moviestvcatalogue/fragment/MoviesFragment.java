@@ -1,12 +1,19 @@
 package id.husni.moviestvcatalogue.fragment;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,18 +26,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import id.husni.moviestvcatalogue.R;
+import id.husni.moviestvcatalogue.activity.MovieSearchActivity;
+import id.husni.moviestvcatalogue.activity.ReminderActivity;
 import id.husni.moviestvcatalogue.adapter.MoviesAdapter;
 import id.husni.moviestvcatalogue.adapter.favorite.MoviesFavoriteAdapter;
-import id.husni.moviestvcatalogue.detail.MoviesDetail;
 import id.husni.moviestvcatalogue.model.Movies;
-import id.husni.moviestvcatalogue.model.favorite.MoviesFavorite;
-import id.husni.moviestvcatalogue.utilities.AppUtilities;
 import id.husni.moviestvcatalogue.viewmodel.MoviesViewModel;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoviesFragment extends Fragment {
     private MoviesAdapter adapter;
-    private MoviesFavoriteAdapter favoriteAdapter;
     private ProgressBar progressBar;
 
     public MoviesFragment() {
@@ -47,9 +52,10 @@ public class MoviesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
 
         adapter = new MoviesAdapter(getContext());
-        favoriteAdapter = new MoviesFavoriteAdapter(getContext());
+        MoviesFavoriteAdapter favoriteAdapter = new MoviesFavoriteAdapter(getContext());
 
         progressBar = view.findViewById(R.id.progressBarMovies);
 
@@ -82,17 +88,43 @@ public class MoviesFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppUtilities.ADD_REQUEST_CODE) {
-            if (resultCode == AppUtilities.ADD_RESULT_CODE) {
-                MoviesFavorite moviesFavorite = data.getParcelableExtra(MoviesDetail.EXTRA_MOVIES_DETAIL);
-                favoriteAdapter.insertData(moviesFavorite);
-            }
-            else if (resultCode == AppUtilities.DELETE_RESULT_CODE) {
-                int position = data.getIntExtra(MoviesDetail.EXTRA_POSITION_MOVIES, 0);
-                favoriteAdapter.deleteData(position);
-            }
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_item, menu);
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+        if (searchManager != null) {
+            SearchView searchView = (SearchView) menu.findItem(R.id.actSearch).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setQueryHint(getResources().getString(R.string.searchMovie));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Intent intent = new Intent(getActivity(), MovieSearchActivity.class);
+                    intent.putExtra(MovieSearchActivity.QUERY_EXTRA, query);
+                    startActivity(intent);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
         }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actChangeLang:
+                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intent);
+                break;
+            case R.id.actReminder:
+                Intent reminderIntent = new Intent(getContext(), ReminderActivity.class);
+                startActivity(reminderIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -24,6 +24,7 @@ import id.husni.moviestvcatalogue.model.search.MovieSearch;
 import id.husni.moviestvcatalogue.viewmodel.search.MoviesSearchViewModel;
 
 public class MovieSearchActivity extends AppCompatActivity {
+    public static final String QUERY_EXTRA = "queryExtra" ;
     private MoviesSearchAdapter adapter;
     private ProgressBar progressBar;
     private TextView emptyText;
@@ -37,8 +38,11 @@ public class MovieSearchActivity extends AppCompatActivity {
 
         Toolbar tbar = findViewById(R.id.tbarMovieSearch);
         setSupportActionBar(tbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getResources().getString(R.string.searchMovie));
+        }
         progressBar = findViewById(R.id.progressBarMoviesSearch);
 
         emptyText = findViewById(R.id.emptyTextMovieSearch);
@@ -49,7 +53,11 @@ public class MovieSearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        String queryExtra = getIntent().getStringExtra(QUERY_EXTRA);
+
         model = ViewModelProviders.of(this).get(MoviesSearchViewModel.class);
+        model.setData(queryExtra);
+        showLoading(true);
         model.getData().observe(this,myObserver);
 
     }
@@ -80,10 +88,10 @@ public class MovieSearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_movies, menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         if (searchManager != null) {
-            SearchView searchView = (SearchView) menu.findItem(R.id.searchMovie).getActionView();
+            SearchView searchView = (SearchView) menu.findItem(R.id.searchData).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

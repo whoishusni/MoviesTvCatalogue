@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_all">18dp</dimen>
+    <dimen name="cardview_margin">7dp</dimen>
+    <dimen name="recycler_image_to_text">8dp</dimen>
+    <dimen name="recycler_title_to_genre">3dp</dimen>
+    <dimen name="card_view_elevation">5dp</dimen>
+    <dimen name="card_view_corner">8dp</dimen>
+    <dimen name="first_text_detail">18sp</dimen>
+    <dimen name="expanded_text_size">15sp</dimen>
+</resources>

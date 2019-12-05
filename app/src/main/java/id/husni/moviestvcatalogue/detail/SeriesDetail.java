@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +22,7 @@ import com.like.OnLikeListener;
 import com.robertlevonyan.views.chip.Chip;
 
 import id.husni.moviestvcatalogue.R;
-import id.husni.moviestvcatalogue.database.table.SeriesHelper;
+import id.husni.moviestvcatalogue.database.MappingHelper;
 import id.husni.moviestvcatalogue.model.Series;
 import id.husni.moviestvcatalogue.model.favorite.SeriesFavorite;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
@@ -31,7 +33,6 @@ public class SeriesDetail extends AppCompatActivity {
 
     public static final String EXTRA_SERIES_DETAIL = "extra_series" ;
     public static final String EXTRA_POSITION_SERIES = "extra_position_series" ;
-    private SeriesHelper helper;
     private SeriesFavorite seriesFavorite;
     private int position;
     private Series series;
@@ -39,9 +40,6 @@ public class SeriesDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series_detail);
-
-        helper = SeriesHelper.getInstance(getApplicationContext());
-        helper.open();
 
         if (seriesFavorite != null) {
             position = getIntent().getIntExtra(EXTRA_POSITION_SERIES, 0);
@@ -53,8 +51,10 @@ public class SeriesDetail extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.tbarSeriesDetail);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingSeriesDetail);
         collapsingToolbarLayout.setTitle(series.getTitle());
@@ -105,25 +105,22 @@ public class SeriesDetail extends AppCompatActivity {
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                long result = helper.insertData(contentValues);
-                if (result > 0) {
-                    seriesFavorite.setId((int) result);
-                    setResult(AppUtilities.ADD_RESULT_CODE, intent);
-                    Toast.makeText(SeriesDetail.this, series.getTitle() +" "+ getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SeriesDetail.this, "Gagal Like", Toast.LENGTH_SHORT).show();
-                }
+                getContentResolver().insert(URI_SERIES, contentValues);
+                Toast.makeText(SeriesDetail.this, getResources().getString(R.string.addedtofavorite), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                long result = helper.deleteData(String.valueOf(seriesFavorite.getId()));
-                if (result > 0) {
-                    setResult(AppUtilities.DELETE_RESULT_CODE, intent);
-                    Toast.makeText(SeriesDetail.this, series.getTitle()+" "+getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SeriesDetail.this, "Gagal Unliked", Toast.LENGTH_SHORT).show();
+                Uri uriWithId = Uri.parse(URI_SERIES + "/" + seriesFavorite.getId());
+                if (uriWithId != null) {
+                    Cursor uriCursor = getContentResolver().query(uriWithId, null, null, null, null);
+                    if (uriCursor != null && uriCursor.moveToFirst() ) {
+                        seriesFavorite = MappingHelper.mapSeriesToObject(uriCursor);
+                        uriCursor.close();
+                    }
                 }
+                getContentResolver().delete(uriWithId, null, null);
+                Toast.makeText(SeriesDetail.this, getResources().getString(R.string.removeFromfavorite), Toast.LENGTH_SHORT).show();
             }
         });
         return super.onCreateOptionsMenu(menu);

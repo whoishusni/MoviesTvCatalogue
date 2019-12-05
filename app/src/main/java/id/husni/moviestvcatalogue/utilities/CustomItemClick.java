@@ -4,7 +4,7 @@ import android.view.View;
 
 public class CustomItemClick implements View.OnClickListener {
     private int position;
-    OnItemClick onItemClick;
+    private OnItemClick onItemClick;
 
     public CustomItemClick(int position, OnItemClick onItemClick) {
         this.position = position;
