@@ -36,6 +36,7 @@ import static id.husni.moviestvcatalogue.database.DatabaseContract.URI_MOVIES;
  */
 public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
 
+    private static final String EXTRA_STATE_MOVIES = "extraStateMovies" ;
     private MoviesFavoriteAdapter adapter;
 
     public MoviesFavoriteFragment() {
@@ -68,11 +69,17 @@ public class MoviesFavoriteFragment extends Fragment implements MoviesCallback {
         if (savedInstanceState == null) {
             new MyAsyncData(getContext(), this).execute();
         } else {
-            ArrayList<MoviesFavorite> moviesFaveList = new ArrayList<>();
+            ArrayList<MoviesFavorite> moviesFaveList = savedInstanceState.getParcelableArrayList(EXTRA_STATE_MOVIES);
             if (moviesFaveList != null) {
                 adapter.setMoviesFavoriteArrayList(moviesFaveList);
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(EXTRA_STATE_MOVIES, adapter.getMoviesFavoriteArrayList());
     }
 
     @Override

@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Toolbar tbar = findViewById(R.id.mainTbar);
         setSupportActionBar(tbar);
 
+        getSupportActionBar().setElevation(0);
+
         BottomNavigationView bnv = findViewById(R.id.mainBnv);
         bnv.setOnNavigationItemSelectedListener(this);
     }

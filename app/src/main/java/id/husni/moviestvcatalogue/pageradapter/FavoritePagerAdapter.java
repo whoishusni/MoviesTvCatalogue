@@ -1,42 +1,55 @@
 package id.husni.moviestvcatalogue.pageradapter;
 
+import android.content.ContentValues;
+import android.content.Context;
+
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.fragment.favorite.MoviesFavoriteFragment;
 import id.husni.moviestvcatalogue.fragment.favorite.SeriesFavoriteFragment;
 
 public class FavoritePagerAdapter extends FragmentPagerAdapter {
-    private Fragment [] fragments;
+    private Context mcontext;
 
-    public FavoritePagerAdapter(FragmentManager fm) {
+    public FavoritePagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        fragments = new Fragment[]{
-                new MoviesFavoriteFragment(),new SeriesFavoriteFragment()
-        };
+        mcontext = context;
     }
+
+    @StringRes
+    private final int [] TAB_TITLES = new int[]{
+            R.string.movies,
+            R.string.series
+    };
 
     @Override
     public Fragment getItem(int position) {
-        return fragments[position];
+        Fragment fragments = null;
+        switch (position) {
+            case 0:
+                fragments = new MoviesFavoriteFragment();
+                break;
+            case 1:
+                fragments = new SeriesFavoriteFragment();
+                break;
+        }
+
+        return fragments;
     }
 
     @Override
     public int getCount() {
-        return fragments.length;
+        return 2;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Movies";
-            case 1:
-                return "Tv Series";
-        }
-        return super.getPageTitle(position);
+        return mcontext.getResources().getString(TAB_TITLES[position]);
     }
 }

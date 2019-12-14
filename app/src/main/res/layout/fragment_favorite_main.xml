@@ -19,6 +19,7 @@
         app:layout_constraintVertical_bias="0.0"
         app:tabIndicatorColor="@android:color/white"
         app:tabIndicatorHeight="4dp"
+        android:elevation="5dp"
         app:tabTextColor="@color/tablayoutTextColor"
         app:tabSelectedTextColor="@android:color/white">
 

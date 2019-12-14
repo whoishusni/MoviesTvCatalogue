@@ -39,10 +39,11 @@ public class FavoriteMainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewPager viewPager = view.findViewById(R.id.favoriteViewPager);
-        FavoritePagerAdapter favoritePagerAdapter = new FavoritePagerAdapter(getChildFragmentManager());
+        FavoritePagerAdapter favoritePagerAdapter = new FavoritePagerAdapter(getContext(),getFragmentManager());
         viewPager.setAdapter(favoritePagerAdapter);
 
         TabLayout tabLayout = view.findViewById(R.id.favoriteTabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 }
