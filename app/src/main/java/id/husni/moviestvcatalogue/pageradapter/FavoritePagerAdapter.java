@@ -1,6 +1,5 @@
 package id.husni.moviestvcatalogue.pageradapter;
 
-import android.content.ContentValues;
 import android.content.Context;
 
 import androidx.annotation.Nullable;

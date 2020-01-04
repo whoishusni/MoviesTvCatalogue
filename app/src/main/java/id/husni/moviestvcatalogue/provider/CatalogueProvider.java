@@ -95,7 +95,6 @@ public class CatalogueProvider extends ContentProvider {
                 uri1 = Uri.parse(URI_SERIES + "/" + added);
                 break;
                 default:
-                    added = 0;
         }
         return uri1;
     }

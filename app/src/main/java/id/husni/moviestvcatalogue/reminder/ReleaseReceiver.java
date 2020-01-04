@@ -32,7 +32,6 @@ import java.util.Locale;
 import cz.msebera.android.httpclient.Header;
 import id.husni.moviestvcatalogue.BuildConfig;
 import id.husni.moviestvcatalogue.R;
-import id.husni.moviestvcatalogue.activity.MainActivity;
 import id.husni.moviestvcatalogue.activity.MovieReleaseActivity;
 import id.husni.moviestvcatalogue.model.release.MovieRelease;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
