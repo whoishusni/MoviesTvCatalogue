@@ -9,14 +9,17 @@ import org.json.JSONObject;
 public class MovieRelease implements Parcelable {
 
     private String title;
+    private String posterPath;
 
     public MovieRelease(JSONObject object) {
         try {
             title = object.getString("title");
+            posterPath = object.getString("poster_path");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         this.title = title;
+        this.posterPath = posterPath;
     }
 
     public String getTitle() {
@@ -27,6 +30,14 @@ public class MovieRelease implements Parcelable {
         this.title = title;
     }
 
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -35,13 +46,15 @@ public class MovieRelease implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
+        dest.writeString(this.posterPath);
     }
 
     protected MovieRelease(Parcel in) {
         this.title = in.readString();
+        this.posterPath = in.readString();
     }
 
-    public static final Parcelable.Creator<MovieRelease> CREATOR = new Parcelable.Creator<MovieRelease>() {
+    public static final Creator<MovieRelease> CREATOR = new Creator<MovieRelease>() {
         @Override
         public MovieRelease createFromParcel(Parcel source) {
             return new MovieRelease(source);

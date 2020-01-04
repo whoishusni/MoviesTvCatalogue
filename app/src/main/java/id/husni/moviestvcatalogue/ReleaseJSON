@@ -1,0 +1,64 @@
+{
+  "page": 1,
+  "total_results": 3,
+  "total_pages": 1,
+  "results": [
+    {
+      "popularity": 27.469,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/5SHwjAjw6A0Pb1PfSYyFrjvoZIh.jpg",
+      "id": 656844,
+      "adult": false,
+      "backdrop_path": "\/5nXeDDzVSJtCh0zBUIjHKD8ukBC.jpg",
+      "original_language": "en",
+      "original_title": "Winter in Vail",
+      "genre_ids": [
+        10749,
+        10770
+      ],
+      "title": "Winter in Vail",
+      "vote_average": 0,
+      "overview": "Chelsea inherits a house in Vail. She meets Owen and gets a much needed break. Together, they put on Strudelfest to highlight the charm of Old Vail.",
+      "release_date": "2020-01-04"
+    },
+    {
+      "popularity": 20.581,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": null,
+      "id": 626020,
+      "adult": false,
+      "backdrop_path": "\/wd3EZI5kwQbF7D5I1dcKgoGgMDM.jpg",
+      "original_language": "en",
+      "original_title": "Stage Mother",
+      "genre_ids": [
+        35,
+        18
+      ],
+      "title": "Stage Mother",
+      "vote_average": 0,
+      "overview": "A conservative church-choir director moves to San Francisco to run her deceased gay son drag club.",
+      "release_date": "2020-01-04"
+    },
+    {
+      "popularity": 0,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/sjYwybfQfO8I9TGm55BpjQdjxL2.jpg",
+      "id": 660663,
+      "adult": false,
+      "backdrop_path": "\/xi5sSAVRGRGFd86MspiJ56ZdRMP.jpg",
+      "original_language": "en",
+      "original_title": "Killer Camera Monsters",
+      "genre_ids": [
+        27,
+        53
+      ],
+      "title": "Killer Camera Monsters",
+      "vote_average": 0,
+      "overview": "A struggling photographer gets more than he bargained for, discovering the truth of what his new camera is really capable of.",
+      "release_date": "2020-01-04"
+    }
+  ]
+}

@@ -33,6 +33,7 @@ import cz.msebera.android.httpclient.Header;
 import id.husni.moviestvcatalogue.BuildConfig;
 import id.husni.moviestvcatalogue.R;
 import id.husni.moviestvcatalogue.activity.MainActivity;
+import id.husni.moviestvcatalogue.activity.MovieReleaseActivity;
 import id.husni.moviestvcatalogue.model.release.MovieRelease;
 import id.husni.moviestvcatalogue.utilities.AppUtilities;
 
@@ -95,7 +96,7 @@ public class ReleaseReceiver extends BroadcastReceiver {
         String message = null;
 
         NotificationCompat.Builder builder;
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MovieReleaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent contentPending = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
