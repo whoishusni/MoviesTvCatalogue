@@ -1,6 +1,6 @@
 # MoviesTvCatalogue
 
-iam using androidx artifact
+iam using androidx artifact (Some code may deprecated)  
 
 Feature :
 - Widget
